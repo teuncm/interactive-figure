@@ -1,6 +1,10 @@
 # Interactive Figure
 
-Create interactive Matplotlib figures that can be used for simple reaction time experiments. This package serves as a simple playground for students to perform such experiments. For more accurate scientific analysis one should refer to [PsychoPy](https://www.psychopy.org/).
+This package serves for students to learn about basic reaction time experiments (visual search task, Stroop task, etc.). For a more accurate timing environment one should refer to e.g. [PsychoPy](https://www.psychopy.org/).
+
+Most functionality only works correctly in standalone scripts, not in notebooks.
+
+Created using [Hatch](https://hatch.pypa.io).
 
 ### Installation
 
@@ -19,14 +23,23 @@ interactive_figure.wait_for_interaction()
 interactive_figure.close()
 ```
 
-A quick example can be found in demo/basic.py.
+A demo using timing can be found in *demo/basic.py*.
 
 ### Functionality
 
+User interaction:
+- Capture key presses, button presses and mouse location
+
+Figure control:
 - Create
-- Fullscreen
+- Toggle fullscreen
 - Clear
 - Wait
 - Wait for interaction (optionally timeout)
 - Draw
 - Close
+
+### Links
+
+- [GitHub](https://github.com/teuncm/interactive-figure)
+- [PyPI](https://pypi.org/project/interactive-figure/)

@@ -2,6 +2,7 @@
 # https://github.com/teuncm/interactive-figure
 #
 # This module provides functions to create and interact with a Matplotlib figure.
+# This functionality will only work in standalone scripts (not in notebooks).
 #
 # The figure registers mouse presses, keyboard input and the location of the mouse
 # after any input. The user has fine-grained control over when to wait for input
@@ -34,6 +35,9 @@ def create(aspect_ratio="auto", hide_toolbar=False, **kwargs):
     if _state.fig is None:
         if hide_toolbar:
             plt.rcParams["toolbar"] = "None"
+
+        # Disable interactive mode for explicit control over drawing.
+        plt.ioff()
 
         _state.fig = fig = plt.figure(**kwargs)
         fig.canvas.manager.set_window_title("Interactive Figure")
