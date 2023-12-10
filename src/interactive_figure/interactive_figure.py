@@ -1,5 +1,5 @@
 # Author: Teun Mathijssen
-# https://github.com/teuncm
+# https://github.com/teuncm/interactive-figure
 #
 # This module provides functions to create and interact with a Matplotlib figure.
 #
