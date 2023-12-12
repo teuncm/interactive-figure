@@ -212,25 +212,35 @@ def gca():
 
 
 def get_last_keypress():
-    """Get the last keypress.
+    """Get the last keypress and normalize it to lowercase.
 
     Returns
     -------
-    str
+    str | None
         The last key that was pressed
     """
-    return _state.last_keypress
+    key = _state.last_keypress
+
+    if not key is None:
+        return key.lower()
+    else:
+        return None
 
 
 def get_last_mousepress():
-    """Get the last mousepress.
+    """Get the last mousepress and convert it to its integer value.
 
     Returns
     -------
-    int
+    int | None
         The identifier of the last mouse button that was pressed
     """
-    return _state.last_mousepress
+    mouse = _state.last_mousepress
+
+    if not mouse is None:
+        return mouse.value
+    else:
+        return None
 
 
 def get_last_mouse_pos():
@@ -238,7 +248,7 @@ def get_last_mouse_pos():
 
     Returns
     -------
-    (x: float, y: float)
+    (x: float, y: float) | None
         The last registered mouse position after any interaction
     """
     return (_state.last_mouse_x, _state.last_mouse_y)
@@ -296,7 +306,7 @@ def _button_press_handler(event):
         The event object that was generated internally
     """
     _state.last_keypress = event.key
-    _state.last_mousepress = event.button.value
+    _state.last_mousepress = event.button
     _state.last_mouse_x = event.xdata
     _state.last_mouse_y = event.ydata
 
