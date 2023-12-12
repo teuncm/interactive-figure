@@ -2,7 +2,6 @@
 # https://github.com/teuncm/interactive-figure
 #
 # This module provides functions to create and interact with a Matplotlib figure.
-# This functionality will only work in standalone scripts (not in notebooks).
 #
 # The figure registers mouse presses, keyboard input and the location of the mouse
 # after any input. The user has fine-grained control over when to wait for input
