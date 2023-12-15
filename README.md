@@ -50,3 +50,4 @@ Demos can be found in the *demo* folder on GitHub.
 
 - [GitHub](https://github.com/teuncm/interactive-figure)
 - [PyPI](https://pypi.org/project/interactive-figure/)
+- [Documentation](https://teuncm.github.io/interactive-figure/)
