@@ -11,9 +11,6 @@ import matplotlib.pyplot as plt
 from types import SimpleNamespace
 
 
-# PUBLIC METHODS: use these to create and interact with the figure.
-
-
 def create(aspect_ratio="auto", hide_toolbar=False, **kwargs):
     """Create the interactive figure.
 
@@ -35,7 +32,8 @@ def create(aspect_ratio="auto", hide_toolbar=False, **kwargs):
         if hide_toolbar:
             plt.rcParams["toolbar"] = "None"
 
-        # Disable interactive mode for explicit control over drawing.
+        # Disable interactive mode for explicit control over drawing. See:
+        # https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.isinteractive.html#matplotlib.pyplot.isinteractive
         plt.ioff()
 
         _state.fig = fig = plt.figure(**kwargs)
