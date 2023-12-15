@@ -24,7 +24,7 @@ classifiers = [
 dependencies = ["matplotlib"]
 
 [project.urls]
-Documentation = "https://github.com/teuncm/interactive-figure#readme"
+Documentation = "https://teuncm.github.io/interactive-figure/autoapi/interactive_figure/interactive_figure/index.html"
 Issues = "https://github.com/teuncm/interactive-figure/issues"
 Source = "https://github.com/teuncm/interactive-figure"
 
