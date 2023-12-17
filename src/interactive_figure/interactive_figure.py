@@ -1,13 +1,11 @@
 """
-Author: Teun Mathijssen
-
-Source: https://github.com/teuncm/interactive-figure
-
 This module provides functions to create and interact with a Matplotlib figure.
 
 The figure registers mouse presses, keyboard input and the location of the mouse
 after any input. The user has fine-grained control over when to wait for input
 and when to draw the contents of the figure.
+
+Source: https://github.com/teuncm/interactive-figure
 """
 
 import matplotlib.pyplot as plt
@@ -181,19 +179,8 @@ def close():
     print("Successfully closed the interactive figure.")
 
 
-def get_state():
-    """Get all state information of the interactive figure.
-
-    Returns
-    -------
-    SimpleNamespace
-        Namespace with figure state information
-    """
-    return _state
-
-
 def gcf():
-    """Get current figure.
+    """Get figure object of interactive figure.
 
     Returns
     -------
@@ -203,7 +190,7 @@ def gcf():
 
 
 def gca():
-    """Get current Axes.
+    """Get Axes object of interactive figure.
 
     Returns
     -------
@@ -213,35 +200,35 @@ def gca():
 
 
 def get_last_keypress():
-    """Get the last keypress and normalize it to lowercase.
+    """Get the last keypress and convert it to lowercase.
 
     Returns
     -------
     str | None
         The last key that was pressed
     """
-    key = _state.last_keypress
+    key_string = _state.last_keypress
 
-    if not key is None:
-        return key.lower()
-    else:
+    if key_string is None:
         return None
+    else:
+        return key_string.lower()
 
 
 def get_last_mousepress():
-    """Get the last mousepress and convert it to its integer value.
+    """Get the last mousepress and convert it to an integer value.
 
     Returns
     -------
     int | None
         The identifier of the last mouse button that was pressed
     """
-    mouse = _state.last_mousepress
+    mouse_button = _state.last_mousepress
 
-    if not mouse is None:
-        return mouse.value
-    else:
+    if mouse_button is None:
         return None
+    else:
+        return mouse_button.value
 
 
 def get_last_mouse_pos():
@@ -249,13 +236,24 @@ def get_last_mouse_pos():
 
     Returns
     -------
-    (x: float, y: float) | None
+    (x: float, y: float) | (None, None)
         The last registered mouse position after any interaction
     """
     return (_state.last_mouse_x, _state.last_mouse_y)
 
 
 # PRIVATE METHODS
+
+
+def _get_state():
+    """Get all state information of the interactive figure.
+
+    Returns
+    -------
+    SimpleNamespace
+        Namespace with figure state information
+    """
+    return _state
 
 
 def _check_exists():
