@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import random
 import time
 
-TIME_LIMIT = 1
+TIME_LIMIT = 2
 NUM_DISTRACTORS = 39
 
 
