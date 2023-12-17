@@ -17,8 +17,8 @@ def run_demo():
     while True:
         interactive_figure.wait_for_interaction()
 
-        key = interactive_figure.get_last_keypress()
-        mouse = interactive_figure.get_last_mousepress()
+        key = interactive_figure.get_last_key_press()
+        mouse = interactive_figure.get_last_mouse_press()
         x, y = interactive_figure.get_last_mouse_pos()
 
         interactive_figure.clear()

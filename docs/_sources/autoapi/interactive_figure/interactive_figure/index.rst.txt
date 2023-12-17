@@ -33,8 +33,8 @@ Functions
    interactive_figure.interactive_figure.close
    interactive_figure.interactive_figure.gcf
    interactive_figure.interactive_figure.gca
-   interactive_figure.interactive_figure.get_last_keypress
-   interactive_figure.interactive_figure.get_last_mousepress
+   interactive_figure.interactive_figure.get_last_key_press
+   interactive_figure.interactive_figure.get_last_mouse_press
    interactive_figure.interactive_figure.get_last_mouse_pos
 
 
@@ -126,7 +126,7 @@ Functions
        Axes handler
 
 
-.. py:function:: get_last_keypress()
+.. py:function:: get_last_key_press()
 
    Get the last keypress and convert it to lowercase.
 
@@ -136,7 +136,7 @@ Functions
        The last key that was pressed
 
 
-.. py:function:: get_last_mousepress()
+.. py:function:: get_last_mouse_press()
 
    Get the last mousepress and convert it to an integer value.
 

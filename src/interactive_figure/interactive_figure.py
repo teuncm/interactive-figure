@@ -199,7 +199,7 @@ def gca():
     return _state.ax
 
 
-def get_last_keypress():
+def get_last_key_press():
     """Get the last keypress and convert it to lowercase.
 
     Returns
@@ -215,7 +215,7 @@ def get_last_keypress():
         return key_string.lower()
 
 
-def get_last_mousepress():
+def get_last_mouse_press():
     """Get the last mousepress and convert it to an integer value.
 
     Returns

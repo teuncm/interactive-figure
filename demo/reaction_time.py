@@ -43,7 +43,7 @@ def run_demo():
         interaction_type = interactive_figure.wait_for_interaction(TIME_LIMIT)
         time_after = time.time()
 
-        key = interactive_figure.get_last_keypress()
+        key = interactive_figure.get_last_key_press()
         x, y = interactive_figure.get_last_mouse_pos()
         dt = round(time_after - time_before, 3)
 
