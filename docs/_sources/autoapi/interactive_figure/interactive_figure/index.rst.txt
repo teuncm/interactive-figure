@@ -5,15 +5,13 @@
 
 .. autoapi-nested-parse::
 
-   Author: Teun Mathijssen
-
-   Source: https://github.com/teuncm/interactive-figure
-
    This module provides functions to create and interact with a Matplotlib figure.
 
    The figure registers mouse presses, keyboard input and the location of the mouse
    after any input. The user has fine-grained control over when to wait for input
    and when to draw the contents of the figure.
+
+   Source: https://github.com/teuncm/interactive-figure
 
 
 
@@ -33,7 +31,6 @@ Functions
    interactive_figure.interactive_figure.wait_for_interaction
    interactive_figure.interactive_figure.draw
    interactive_figure.interactive_figure.close
-   interactive_figure.interactive_figure.get_state
    interactive_figure.interactive_figure.gcf
    interactive_figure.interactive_figure.gca
    interactive_figure.interactive_figure.get_last_keypress
@@ -111,19 +108,9 @@ Functions
    Close the figure.
 
 
-.. py:function:: get_state()
-
-   Get all state information of the interactive figure.
-
-   Returns
-   -------
-   SimpleNamespace
-       Namespace with figure state information
-
-
 .. py:function:: gcf()
 
-   Get current figure.
+   Get figure object of interactive figure.
 
    Returns
    -------
@@ -132,7 +119,7 @@ Functions
 
 .. py:function:: gca()
 
-   Get current Axes.
+   Get Axes object of interactive figure.
 
    Returns
    -------
@@ -141,7 +128,7 @@ Functions
 
 .. py:function:: get_last_keypress()
 
-   Get the last keypress and normalize it to lowercase.
+   Get the last keypress and convert it to lowercase.
 
    Returns
    -------
@@ -151,7 +138,7 @@ Functions
 
 .. py:function:: get_last_mousepress()
 
-   Get the last mousepress and convert it to its integer value.
+   Get the last mousepress and convert it to an integer value.
 
    Returns
    -------
@@ -165,7 +152,7 @@ Functions
 
    Returns
    -------
-   (x: float, y: float) | None
+   (x: float, y: float) | (None, None)
        The last registered mouse position after any interaction
 
 
