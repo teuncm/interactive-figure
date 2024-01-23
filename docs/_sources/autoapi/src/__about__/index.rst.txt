@@ -1,0 +1,8 @@
+:orphan:
+
+:py:mod:`src.__about__`
+=======================
+
+.. py:module:: src.__about__
+
+

@@ -1,7 +1,7 @@
-:py:mod:`interactive_figure.interactive_figure`
-===============================================
+:py:mod:`src.interactive_figure`
+================================
 
-.. py:module:: interactive_figure.interactive_figure
+.. py:module:: src.interactive_figure
 
 .. autoapi-nested-parse::
 
@@ -15,6 +15,15 @@
 
 
 
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   interactive_figure/index.rst
+
+
 Module Contents
 ---------------
 
@@ -24,18 +33,18 @@ Functions
 
 .. autoapisummary::
 
-   interactive_figure.interactive_figure.create
-   interactive_figure.interactive_figure.toggle_fullscreen
-   interactive_figure.interactive_figure.clear
-   interactive_figure.interactive_figure.wait
-   interactive_figure.interactive_figure.wait_for_interaction
-   interactive_figure.interactive_figure.draw
-   interactive_figure.interactive_figure.close
-   interactive_figure.interactive_figure.gcf
-   interactive_figure.interactive_figure.gca
-   interactive_figure.interactive_figure.get_last_key_press
-   interactive_figure.interactive_figure.get_last_mouse_press
-   interactive_figure.interactive_figure.get_last_mouse_pos
+   src.interactive_figure.create
+   src.interactive_figure.toggle_fullscreen
+   src.interactive_figure.clear
+   src.interactive_figure.wait
+   src.interactive_figure.wait_for_interaction
+   src.interactive_figure.draw
+   src.interactive_figure.close
+   src.interactive_figure.gcf
+   src.interactive_figure.gca
+   src.interactive_figure.get_last_key_press
+   src.interactive_figure.get_last_mouse_press
+   src.interactive_figure.get_last_mouse_pos
 
 
 
@@ -63,10 +72,9 @@ Functions
    Toggle fullscreen.
 
 
-.. py:function:: clear(hide_labels=False, set_limits=True)
+.. py:function:: clear()
 
-   Reset contents and layout of the figure. *set_limits* will set the Axes limits to 
-   [0, 100]. *hide_labels* will remove all labels.
+   Reset the contents and layout of the drawable Axes.
 
 
 .. py:function:: wait(timeout)

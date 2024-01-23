@@ -102,8 +102,8 @@ and when to draw the contents of the figure.</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#interactive_figure.interactive_figure.toggle_fullscreen" title="interactive_figure.interactive_figure.toggle_fullscreen"><code class="xref py py-obj docutils literal notranslate"><span class="pre">toggle_fullscreen</span></code></a>()</p></td>
 <td><p>Toggle fullscreen.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#interactive_figure.interactive_figure.clear" title="interactive_figure.interactive_figure.clear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear</span></code></a>()</p></td>
-<td><p>Reset the contents and layout of the drawable Axes.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#interactive_figure.interactive_figure.clear" title="interactive_figure.interactive_figure.clear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear</span></code></a>([hide_labels, set_limits])</p></td>
+<td><p>Reset contents and layout of the figure. <em>set_limits</em> will set the Axes limits to</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#interactive_figure.interactive_figure.wait" title="interactive_figure.interactive_figure.wait"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wait</span></code></a>(timeout)</p></td>
 <td><p>Timeout for the given number of seconds. During this period it is</p></td>
@@ -165,8 +165,9 @@ and when to draw the contents of the figure.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="interactive_figure.interactive_figure.clear">
-<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interactive_figure.interactive_figure.clear" title="Link to this definition"></a></dt>
-<dd><p>Reset the contents and layout of the drawable Axes.</p>
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hide_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">set_limits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interactive_figure.interactive_figure.clear" title="Link to this definition"></a></dt>
+<dd><p>Reset contents and layout of the figure. <em>set_limits</em> will set the Axes limits to
+[0, 100]. <em>hide_labels</em> will remove all labels.</p>
 </dd></dl>
 
 <dl class="py function">

@@ -21,7 +21,7 @@ def create(aspect_ratio="auto", hide_toolbar=False, **kwargs):
         aspect ratio of the Axes, by default "auto"
     hide_toolbar : bool, optional
         whether to hide the toolbar, by default False
-  
+
     remaining arguments will be sent to the figure upon creation
 
     Raises
@@ -73,16 +73,21 @@ def toggle_fullscreen():
     _state.figure.canvas.manager.full_screen_toggle()
 
 
-def clear():
-    """Reset the contents and layout of the drawable Axes."""
+def clear(hide_labels=False, set_limits=True):
+    """Reset contents and layout of the figure. *set_limits* will set the Axes limits to 
+    [0, 100]. *hide_labels* will remove all labels."""
     _check_exists()
 
     ax = _state.ax
     ax.clear()
-    ax.set_xticks([])
-    ax.set_yticks([])
-    ax.set_xlim([0, 1])
-    ax.set_ylim([0, 1])
+
+    if set_limits:
+        ax.set_xlim([0, 100])
+        ax.set_ylim([0, 100])
+
+    if hide_labels:
+        ax.set_xticks([])
+        ax.set_yticks([])
 
 
 def wait(timeout):

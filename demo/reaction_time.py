@@ -17,14 +17,14 @@ def main():
 
 def plot_stimulus():
     """Plot a stimulus with some distractors and a target."""
-    x = [random.random() for _ in range(NUM_DISTRACTORS)]
-    y = [random.random() for _ in range(NUM_DISTRACTORS)]
+    x = [random.random()*100 for _ in range(NUM_DISTRACTORS)]
+    y = [random.random()*100 for _ in range(NUM_DISTRACTORS)]
 
     # Plot distractors.
     plt.plot(x, y, "k.", markersize=12, markerfacecolor="none", linestyle='none')
 
-    x = random.random()
-    y = random.random()
+    x = random.random()*100
+    y = random.random()*100
 
     # Plot target.
     plt.plot(x, y, "b^", markersize=12, markerfacecolor="none", linestyle='none')

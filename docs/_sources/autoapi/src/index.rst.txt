@@ -1,0 +1,15 @@
+:py:mod:`src`
+=============
+
+.. py:module:: src
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   interactive_figure/index.rst
+
+
