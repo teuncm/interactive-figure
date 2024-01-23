@@ -46,6 +46,18 @@ Demos can be found in the *demo* folder on GitHub.
 - Waiting for user input will not work in Jupyter Notebooks and the interactive interpreter due to the way Matplotlib handles events.
 - Automated testing is hard since tests should cover multiple backends (macosx, QtAgg, Tkgg) on multiple platforms (Windows, macOS, Linux). Tips are very welcome!
 
+## Development
+
+```bash
+# Setup
+pipx install hatch
+hatch shell
+
+# Build
+hatch build -c
+docs_source/generate_docs.sh
+```
+
 ## Links
 
 - [GitHub](https://github.com/teuncm/interactive-figure)
