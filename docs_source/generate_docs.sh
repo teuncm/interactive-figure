@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
-sphinx-build -b html . ../docs
+src_dir=$(dirname "$0")
+sphinx-build -b html "$src_dir" "$src_dir/../docs"
