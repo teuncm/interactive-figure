@@ -55,7 +55,7 @@ hatch shell
 
 # Build
 hatch build -c
-docs_source/generate_docs.sh
+./generate_docs.sh
 ```
 
 ## Links
