@@ -14,7 +14,7 @@ author = 'Teun Mathijssen'
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = ['sphinx_rtd_theme', 'autoapi.extension']
-autoapi_dirs = ['../../src/interactive_figure']
+autoapi_dirs = ['../src/interactive_figure']
 autoapi_options = ['members', 'show-module-summary', 'undoc-members']
 
 # templates_path = ['_templates']
