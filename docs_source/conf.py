@@ -7,7 +7,7 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'Interactive Figure'
-copyright = '2023, Teun Mathijssen'
+# copyright = 'Teun Mathijssen, https://github.com/teuncm/interactive-figure'
 author = 'Teun Mathijssen'
 
 # -- General configuration ---------------------------------------------------
