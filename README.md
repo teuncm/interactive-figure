@@ -27,20 +27,6 @@ interactive_figure.close()
 
 Demos can be found in the *demo* folder on GitHub.
 
-## Functionality
-
-#### User interaction
-- Capture key presses, button presses and mouse location
-
-#### Figure control
-- Create
-- Toggle fullscreen
-- Clear
-- Wait
-- Wait for interaction (optionally timeout)
-- Draw
-- Close
-
 ## Limitations
 
 - Waiting for user input will not work in Jupyter Notebooks and the interactive interpreter due to the way Matplotlib handles events.
@@ -54,8 +40,12 @@ pipx install hatch
 hatch shell
 
 # Build
+hatch version fix
 hatch build -c
 ./generate_docs.sh
+
+# Publish
+hatch publish
 ```
 
 ## Links

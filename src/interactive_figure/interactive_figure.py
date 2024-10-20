@@ -1,9 +1,6 @@
 """
-This module provides functions to create and interact with a Matplotlib figure.
-
-The figure registers mouse presses, keyboard input and the location of the mouse
-after any input. The user has fine-grained control over when to wait for input
-and when to draw the contents of the figure.
+This module provides functions to create and interact with a Matplotlib figure. The figure registers mouse presses, keyboard input and the location of the mouse
+after any input.
 
 Source: https://github.com/teuncm/interactive-figure
 """
@@ -65,16 +62,22 @@ def create(aspect_ratio="auto", hide_toolbar=False, **kwargs):
     else:
         raise RuntimeError("Error: you cannot create multiple interactive figures.")
 
-
-def toggle_fullscreen():
-    """Toggle fullscreen."""
+def draw():
+    """Draw contents of the figure."""
     _check_exists()
 
-    _state.figure.canvas.manager.full_screen_toggle()
+    canvas = _state.fig.canvas
+    # Mark canvas for a draw.
+    canvas.draw_idle()
+    # Force update the GUI. This is when the drawing actually happens
+    # in the backend.
+    canvas.flush_events()
 
 
 def clear(hide_labels=False, set_limits=True):
-    """Reset contents and layout of the figure. *set_limits* will set the Axes limits to 
+    """Reset contents and layout of the figure. 
+    
+    *set_limits* will set the Axes limits to 
     [0, 100]. *hide_labels* will remove all labels."""
     _check_exists()
 
@@ -90,26 +93,29 @@ def clear(hide_labels=False, set_limits=True):
         ax.set_yticks([])
 
 
-def wait(timeout):
-    """Timeout for the given number of seconds. During this period it is
-    not possible to interact with the figure. For sub-second timeouts use
-    time.wait() instead.
-
-    Parameters
-    ----------
-    timeout : float
-        Number of seconds to wait for
-    """
+def toggle_fullscreen():
+    """Toggle fullscreen."""
     _check_exists()
 
-    _state.fig.canvas.start_event_loop(timeout=timeout)
-    # No button was pressed, so reset the state.
+    _state.figure.canvas.manager.full_screen_toggle()
+
+
+def close():
+    """Close the figure."""
+    _check_exists()
+
+    plt.close(_state.fig)
+
+    _state_reset_fig()
     _state_reset_press()
+
+    print("Successfully closed the interactive figure.")
 
 
 def wait_for_interaction(timeout=-1):
-    """Wait for interaction with the interactive figure. Optionally
-    use a timeout in seconds.
+    """Wait for interaction. 
+    
+    Optionally use a timeout in seconds.
 
     Parameters
     ----------
@@ -160,58 +166,16 @@ def wait_for_interaction(timeout=-1):
     return interaction_type
 
 
-def draw():
-    """Draw the figure."""
-    _check_exists()
-
-    canvas = _state.fig.canvas
-    # Mark canvas for a draw.
-    canvas.draw_idle()
-    # Force update the GUI. This is when the drawing actually happens
-    # in the backend.
-    canvas.flush_events()
-
-
-def close():
-    """Close the figure."""
-    _check_exists()
-
-    plt.close(_state.fig)
-
-    _state_reset_fig()
-    _state_reset_press()
-
-    print("Successfully closed the interactive figure.")
-
-
-def gcf():
-    """Get figure object of interactive figure.
-
-    Returns
-    -------
-        Figure handler
-    """
-    return _state.fig
-
-
-def gca():
-    """Get Axes object of interactive figure.
-
-    Returns
-    -------
-        Axes handler
-    """
-    return _state.ax
-
-
 def get_last_key_press():
-    """Get the last keypress and convert it to lowercase.
+    """Get the last key press in lowercase.
 
     Returns
     -------
     str | None
         The last key that was pressed
     """
+    _check_exists()
+
     key_string = _state.last_keypress
 
     if key_string is None:
@@ -221,13 +185,15 @@ def get_last_key_press():
 
 
 def get_last_mouse_press():
-    """Get the last mousepress and convert it to an integer value.
+    """Get the ID of the last mouse press.
 
     Returns
     -------
     int | None
         The identifier of the last mouse button that was pressed
     """
+    _check_exists()
+
     mouse_button = _state.last_mousepress
 
     if mouse_button is None:
@@ -244,7 +210,27 @@ def get_last_mouse_pos():
     (x: float, y: float) | (None, None)
         The last registered mouse position after any interaction
     """
+    _check_exists()
+
     return (_state.last_mouse_x, _state.last_mouse_y)
+
+
+def wait(timeout):
+    """Freeze for the given number of seconds. 
+    
+    During this period it is not possible to interact 
+    with the figure. For sub-second timeouts use time.wait() instead.
+
+    Parameters
+    ----------
+    timeout : float
+        Number of seconds to wait for
+    """
+    _check_exists()
+
+    _state.fig.canvas.start_event_loop(timeout=timeout)
+    # No button was pressed, so reset the state.
+    _state_reset_press()
 
 
 # PRIVATE METHODS

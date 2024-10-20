@@ -1,43 +1,36 @@
-:py:mod:`interactive_figure.interactive_figure`
-===============================================
+interactive_figure.interactive_figure
+=====================================
 
 .. py:module:: interactive_figure.interactive_figure
 
 .. autoapi-nested-parse::
 
-   This module provides functions to create and interact with a Matplotlib figure.
-
-   The figure registers mouse presses, keyboard input and the location of the mouse
-   after any input. The user has fine-grained control over when to wait for input
-   and when to draw the contents of the figure.
+   This module provides functions to create and interact with a Matplotlib figure. The figure registers mouse presses, keyboard input and the location of the mouse
+   after any input.
 
    Source: https://github.com/teuncm/interactive-figure
 
 
 
-Module Contents
----------------
-
-
 Functions
-~~~~~~~~~
+---------
 
 .. autoapisummary::
 
    interactive_figure.interactive_figure.create
-   interactive_figure.interactive_figure.toggle_fullscreen
-   interactive_figure.interactive_figure.clear
-   interactive_figure.interactive_figure.wait
-   interactive_figure.interactive_figure.wait_for_interaction
    interactive_figure.interactive_figure.draw
+   interactive_figure.interactive_figure.clear
+   interactive_figure.interactive_figure.toggle_fullscreen
    interactive_figure.interactive_figure.close
-   interactive_figure.interactive_figure.gcf
-   interactive_figure.interactive_figure.gca
+   interactive_figure.interactive_figure.wait_for_interaction
    interactive_figure.interactive_figure.get_last_key_press
    interactive_figure.interactive_figure.get_last_mouse_press
    interactive_figure.interactive_figure.get_last_mouse_pos
+   interactive_figure.interactive_figure.wait
 
 
+Module Contents
+---------------
 
 .. py:function:: create(aspect_ratio='auto', hide_toolbar=False, **kwargs)
 
@@ -58,33 +51,34 @@ Functions
        if multiple interactive figures are created.
 
 
+.. py:function:: draw()
+
+   Draw contents of the figure.
+
+
+.. py:function:: clear(hide_labels=False, set_limits=True)
+
+   Reset contents and layout of the figure. 
+
+   *set_limits* will set the Axes limits to 
+   [0, 100]. *hide_labels* will remove all labels.
+
+
 .. py:function:: toggle_fullscreen()
 
    Toggle fullscreen.
 
 
-.. py:function:: clear(hide_labels=False, set_limits=True)
+.. py:function:: close()
 
-   Reset contents and layout of the figure. *set_limits* will set the Axes limits to 
-   [0, 100]. *hide_labels* will remove all labels.
-
-
-.. py:function:: wait(timeout)
-
-   Timeout for the given number of seconds. During this period it is
-   not possible to interact with the figure. For sub-second timeouts use
-   time.wait() instead.
-
-   Parameters
-   ----------
-   timeout : float
-       Number of seconds to wait for
+   Close the figure.
 
 
 .. py:function:: wait_for_interaction(timeout=-1)
 
-   Wait for interaction with the interactive figure. Optionally
-   use a timeout in seconds.
+   Wait for interaction. 
+
+   Optionally use a timeout in seconds.
 
    Parameters
    ----------
@@ -99,37 +93,9 @@ Functions
        - None if no input was given within the timeout.
 
 
-.. py:function:: draw()
-
-   Draw the figure.
-
-
-.. py:function:: close()
-
-   Close the figure.
-
-
-.. py:function:: gcf()
-
-   Get figure object of interactive figure.
-
-   Returns
-   -------
-       Figure handler
-
-
-.. py:function:: gca()
-
-   Get Axes object of interactive figure.
-
-   Returns
-   -------
-       Axes handler
-
-
 .. py:function:: get_last_key_press()
 
-   Get the last keypress and convert it to lowercase.
+   Get the last key press in lowercase.
 
    Returns
    -------
@@ -139,7 +105,7 @@ Functions
 
 .. py:function:: get_last_mouse_press()
 
-   Get the last mousepress and convert it to an integer value.
+   Get the ID of the last mouse press.
 
    Returns
    -------
@@ -155,5 +121,18 @@ Functions
    -------
    (x: float, y: float) | (None, None)
        The last registered mouse position after any interaction
+
+
+.. py:function:: wait(timeout)
+
+   Freeze for the given number of seconds. 
+
+   During this period it is not possible to interact 
+   with the figure. For sub-second timeouts use time.wait() instead.
+
+   Parameters
+   ----------
+   timeout : float
+       Number of seconds to wait for
 
 
