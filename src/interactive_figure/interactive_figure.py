@@ -15,14 +15,14 @@ def create(aspect_ratio="auto", hide_toolbar=False, **kwargs):
     Parameters
     ----------
     aspect_ratio : str, optional
-        aspect ratio of the Axes, by default "auto"
+        aspect ratio of the Axes, default "auto".
     hide_toolbar : bool, optional
-        whether to hide the toolbar, by default False
+        whether to hide the toolbar, default False.
 
-    remaining arguments will be sent to the figure upon creation
+    Remaining arguments will be sent to the figure upon creation.
 
     Raises
-    ------
+    ----------
     RuntimeError
         if multiple interactive figures are created.
     """
@@ -62,6 +62,7 @@ def create(aspect_ratio="auto", hide_toolbar=False, **kwargs):
     else:
         raise RuntimeError("Error: you cannot create multiple interactive figures.")
 
+
 def draw():
     """Draw contents of the figure."""
     _check_exists()
@@ -75,10 +76,15 @@ def draw():
 
 
 def clear(hide_labels=False, set_limits=True):
-    """Reset contents and layout of the figure. 
-    
-    *set_limits* will set the Axes limits to 
-    [0, 100]. *hide_labels* will remove all labels."""
+    """Reset contents and layout of the figure.
+
+    Parameters
+    ----------
+    set_limits : bool, optional
+        set the Axes limits to [0, 100].
+    hide_labels : bool, optional
+        remove all labels from the figure.
+    """
     _check_exists()
 
     ax = _state.ax
@@ -172,7 +178,7 @@ def get_last_key_press():
     Returns
     -------
     str | None
-        The last key that was pressed
+        The last key that was pressed.
     """
     _check_exists()
 
@@ -190,7 +196,7 @@ def get_last_mouse_press():
     Returns
     -------
     int | None
-        The identifier of the last mouse button that was pressed
+        The identifier of the last mouse button that was pressed.
     """
     _check_exists()
 
@@ -208,7 +214,7 @@ def get_last_mouse_pos():
     Returns
     -------
     (x: float, y: float) | (None, None)
-        The last registered mouse position after any interaction
+        The last registered mouse position after any interaction.
     """
     _check_exists()
 
@@ -224,7 +230,7 @@ def wait(timeout):
     Parameters
     ----------
     timeout : float
-        Number of seconds to wait for
+        Number of seconds to wait for.
     """
     _check_exists()
 
@@ -233,7 +239,7 @@ def wait(timeout):
     _state_reset_press()
 
 
-# PRIVATE METHODS
+# HIDDEN METHODS
 
 
 def _get_state():

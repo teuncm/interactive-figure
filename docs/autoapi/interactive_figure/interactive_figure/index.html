@@ -132,12 +132,12 @@ after any input.</p>
 <section id="parameters">
 <h3>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h3>
 <dl class="simple">
-<dt>aspect_ratio<span class="classifier">str, optional</span></dt><dd><p>aspect ratio of the Axes, by default “auto”</p>
+<dt>aspect_ratio<span class="classifier">str, optional</span></dt><dd><p>aspect ratio of the Axes, default “auto”.</p>
 </dd>
-<dt>hide_toolbar<span class="classifier">bool, optional</span></dt><dd><p>whether to hide the toolbar, by default False</p>
+<dt>hide_toolbar<span class="classifier">bool, optional</span></dt><dd><p>whether to hide the toolbar, default False.</p>
 </dd>
 </dl>
-<p>remaining arguments will be sent to the figure upon creation</p>
+<p>Remaining arguments will be sent to the figure upon creation.</p>
 </section>
 <section id="raises">
 <h3>Raises<a class="headerlink" href="#raises" title="Link to this heading"></a></h3>
@@ -158,8 +158,15 @@ after any input.</p>
 <dt class="sig sig-object py" id="interactive_figure.interactive_figure.clear">
 <span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hide_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">set_limits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interactive_figure.interactive_figure.clear" title="Link to this definition"></a></dt>
 <dd><p>Reset contents and layout of the figure.</p>
-<p><em>set_limits</em> will set the Axes limits to
-[0, 100]. <em>hide_labels</em> will remove all labels.</p>
+<section id="id1">
+<h3>Parameters<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<dl class="simple">
+<dt>set_limits<span class="classifier">bool, optional</span></dt><dd><p>set the Axes limits to [0, 100].</p>
+</dd>
+<dt>hide_labels<span class="classifier">bool, optional</span></dt><dd><p>remove all labels from the figure.</p>
+</dd>
+</dl>
+</section>
 </dd></dl>
 
 <dl class="py function">
@@ -179,8 +186,8 @@ after any input.</p>
 <span class="sig-name descname"><span class="pre">wait_for_interaction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interactive_figure.interactive_figure.wait_for_interaction" title="Link to this definition"></a></dt>
 <dd><p>Wait for interaction.</p>
 <p>Optionally use a timeout in seconds.</p>
-<section id="id1">
-<h3>Parameters<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<section id="id2">
+<h3>Parameters<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
 <dl class="simple">
 <dt>timeout<span class="classifier">int, optional</span></dt><dd><p>Timeout in seconds when waiting for input.</p>
 </dd>
@@ -203,10 +210,10 @@ after any input.</p>
 <dt class="sig sig-object py" id="interactive_figure.interactive_figure.get_last_key_press">
 <span class="sig-name descname"><span class="pre">get_last_key_press</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interactive_figure.interactive_figure.get_last_key_press" title="Link to this definition"></a></dt>
 <dd><p>Get the last key press in lowercase.</p>
-<section id="id2">
-<h3>Returns<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<section id="id3">
+<h3>Returns<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
 <dl class="simple">
-<dt>str | None</dt><dd><p>The last key that was pressed</p>
+<dt>str | None</dt><dd><p>The last key that was pressed.</p>
 </dd>
 </dl>
 </section>
@@ -216,10 +223,10 @@ after any input.</p>
 <dt class="sig sig-object py" id="interactive_figure.interactive_figure.get_last_mouse_press">
 <span class="sig-name descname"><span class="pre">get_last_mouse_press</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interactive_figure.interactive_figure.get_last_mouse_press" title="Link to this definition"></a></dt>
 <dd><p>Get the ID of the last mouse press.</p>
-<section id="id3">
-<h3>Returns<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<section id="id4">
+<h3>Returns<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
 <dl class="simple">
-<dt>int | None</dt><dd><p>The identifier of the last mouse button that was pressed</p>
+<dt>int | None</dt><dd><p>The identifier of the last mouse button that was pressed.</p>
 </dd>
 </dl>
 </section>
@@ -229,10 +236,10 @@ after any input.</p>
 <dt class="sig sig-object py" id="interactive_figure.interactive_figure.get_last_mouse_pos">
 <span class="sig-name descname"><span class="pre">get_last_mouse_pos</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interactive_figure.interactive_figure.get_last_mouse_pos" title="Link to this definition"></a></dt>
 <dd><p>Get the last mouse position.</p>
-<section id="id4">
-<h3>Returns<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<section id="id5">
+<h3>Returns<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
 <dl class="simple">
-<dt>(x: float, y: float) | (None, None)</dt><dd><p>The last registered mouse position after any interaction</p>
+<dt>(x: float, y: float) | (None, None)</dt><dd><p>The last registered mouse position after any interaction.</p>
 </dd>
 </dl>
 </section>
@@ -244,10 +251,10 @@ after any input.</p>
 <dd><p>Freeze for the given number of seconds.</p>
 <p>During this period it is not possible to interact
 with the figure. For sub-second timeouts use time.wait() instead.</p>
-<section id="id5">
-<h3>Parameters<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<section id="id6">
+<h3>Parameters<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
 <dl class="simple">
-<dt>timeout<span class="classifier">float</span></dt><dd><p>Number of seconds to wait for</p>
+<dt>timeout<span class="classifier">float</span></dt><dd><p>Number of seconds to wait for.</p>
 </dd>
 </dl>
 </section>
