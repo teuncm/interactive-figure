@@ -10,17 +10,17 @@ from types import SimpleNamespace
 import sys
 
 
-def create(aspect_ratio="auto", hide_toolbar=False, **kwargs):
+def create(hide_labels=False, hide_toolbar=False, **kwargs):
     """Create the interactive figure.
 
     Parameters
     ----------
-    aspect_ratio : str, optional
-        aspect ratio of the Axes, default "auto".
+    hide_labels : bool, optional
+        remove all labels from the figure (makes rendering *much* faster).
     hide_toolbar : bool, optional
         whether to hide the toolbar, default False.
 
-    Remaining arguments will be sent to the figure upon creation.
+    Remaining keyword arguments will be sent to the figure upon creation.
 
     Raises
     ----------
@@ -31,6 +31,9 @@ def create(aspect_ratio="auto", hide_toolbar=False, **kwargs):
         if hide_toolbar:
             plt.rcParams["toolbar"] = "None"
 
+        if hide_labels:
+            _state.hide_labels = True
+
         # Disable interactive mode for explicit control over drawing. See:
         # https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.isinteractive.html#matplotlib.pyplot.isinteractive
         plt.ioff()
@@ -39,7 +42,6 @@ def create(aspect_ratio="auto", hide_toolbar=False, **kwargs):
         fig.canvas.manager.set_window_title("Interactive Figure")
         # Create drawable axis.
         _state.ax = ax = plt.gca()
-        ax.set_aspect(aspect_ratio)
 
         # Show figure but allow the main thread to continue.
         plt.show(block=False)
@@ -77,26 +79,17 @@ def draw():
     canvas.flush_events()
 
 
-def clear(hide_labels=False, set_limits=True):
-    """Reset contents and layout of the figure.
-
-    Parameters
-    ----------
-    set_limits : bool, optional
-        set the Axes limits to [0, 100].
-    hide_labels : bool, optional
-        remove all labels from the figure.
-    """
+def clear():
+    """Reset contents and layout of the figure."""
     _check_exists()
 
     ax = _state.ax
     ax.clear()
 
-    if set_limits:
-        ax.set_xlim([0, 100])
-        ax.set_ylim([0, 100])
+    ax.set_xlim([0, 100])
+    ax.set_ylim([0, 100])
 
-    if hide_labels:
+    if _state.hide_labels:
         ax.set_xticks([])
         ax.set_yticks([])
 
@@ -271,6 +264,7 @@ def _state_reset_fig():
     """Reset figure information."""
     _state.fig = None
     _state.ax = None
+    _state.hide_labels = False
     _state.closed_using_ui = True
 
 
@@ -331,9 +325,10 @@ def _close_handler(event):
 _state = SimpleNamespace(
     fig=None,
     ax=None,
+    hide_labels=False,
+    closed_using_ui=True,
     last_keypress=None,
     last_mousepress=None,
     last_mouse_x=None,
     last_mouse_y=None,
-    closed_using_ui=True
 )
