@@ -340,13 +340,13 @@ after any input.</p>
 <h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#interactive_figure.interactive_figure.create" title="interactive_figure.interactive_figure.create"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create</span></code></a>([aspect_ratio, hide_toolbar])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#interactive_figure.interactive_figure.create" title="interactive_figure.interactive_figure.create"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create</span></code></a>([hide_labels, hide_toolbar])</p></td>
 <td><p>Create the interactive figure.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#interactive_figure.interactive_figure.draw" title="interactive_figure.interactive_figure.draw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw</span></code></a>()</p></td>
 <td><p>Draw contents of the figure.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#interactive_figure.interactive_figure.clear" title="interactive_figure.interactive_figure.clear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear</span></code></a>([hide_labels, set_limits])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#interactive_figure.interactive_figure.clear" title="interactive_figure.interactive_figure.clear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear</span></code></a>()</p></td>
 <td><p>Reset contents and layout of the figure.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#interactive_figure.interactive_figure.toggle_fullscreen" title="interactive_figure.interactive_figure.toggle_fullscreen"><code class="xref py py-obj docutils literal notranslate"><span class="pre">toggle_fullscreen</span></code></a>()</p></td>
@@ -378,17 +378,17 @@ after any input.</p>
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="interactive_figure.interactive_figure.create">
-<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aspect_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hide_toolbar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interactive_figure.interactive_figure.create" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hide_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hide_toolbar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interactive_figure.interactive_figure.create" title="Link to this definition">#</a></dt>
 <dd><p>Create the interactive figure.</p>
 <section id="parameters">
 <h3>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">#</a></h3>
 <dl class="simple">
-<dt>aspect_ratio<span class="classifier">str, optional</span></dt><dd><p>aspect ratio of the Axes, default “auto”.</p>
+<dt>hide_labels<span class="classifier">bool, optional</span></dt><dd><p>remove all labels from the figure (makes rendering <em>much</em> faster).</p>
 </dd>
 <dt>hide_toolbar<span class="classifier">bool, optional</span></dt><dd><p>whether to hide the toolbar, default False.</p>
 </dd>
 </dl>
-<p>Remaining arguments will be sent to the figure upon creation.</p>
+<p>Remaining keyword arguments will be sent to the figure upon creation.</p>
 </section>
 <section id="raises">
 <h3>Raises<a class="headerlink" href="#raises" title="Link to this heading">#</a></h3>
@@ -407,17 +407,8 @@ after any input.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="interactive_figure.interactive_figure.clear">
-<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hide_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">set_limits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interactive_figure.interactive_figure.clear" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interactive_figure.interactive_figure.clear" title="Link to this definition">#</a></dt>
 <dd><p>Reset contents and layout of the figure.</p>
-<section id="id1">
-<h3>Parameters<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
-<dl class="simple">
-<dt>set_limits<span class="classifier">bool, optional</span></dt><dd><p>set the Axes limits to [0, 100].</p>
-</dd>
-<dt>hide_labels<span class="classifier">bool, optional</span></dt><dd><p>remove all labels from the figure.</p>
-</dd>
-</dl>
-</section>
 </dd></dl>
 
 <dl class="py function">
@@ -437,8 +428,8 @@ after any input.</p>
 <span class="sig-name descname"><span class="pre">wait_for_interaction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interactive_figure.interactive_figure.wait_for_interaction" title="Link to this definition">#</a></dt>
 <dd><p>Wait for interaction.</p>
 <p>Optionally use a timeout in seconds.</p>
-<section id="id2">
-<h3>Parameters<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<section id="id1">
+<h3>Parameters<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <dl class="simple">
 <dt>timeout<span class="classifier">int, optional</span></dt><dd><p>Timeout in seconds when waiting for input.</p>
 </dd>
@@ -461,8 +452,8 @@ after any input.</p>
 <dt class="sig sig-object py" id="interactive_figure.interactive_figure.get_last_key_press">
 <span class="sig-name descname"><span class="pre">get_last_key_press</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interactive_figure.interactive_figure.get_last_key_press" title="Link to this definition">#</a></dt>
 <dd><p>Get the last key press in lowercase.</p>
-<section id="id3">
-<h3>Returns<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<section id="id2">
+<h3>Returns<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
 <dl class="simple">
 <dt>str | None</dt><dd><p>The last key that was pressed.</p>
 </dd>
@@ -474,8 +465,8 @@ after any input.</p>
 <dt class="sig sig-object py" id="interactive_figure.interactive_figure.get_last_mouse_press">
 <span class="sig-name descname"><span class="pre">get_last_mouse_press</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interactive_figure.interactive_figure.get_last_mouse_press" title="Link to this definition">#</a></dt>
 <dd><p>Get the ID of the last mouse press.</p>
-<section id="id4">
-<h3>Returns<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<section id="id3">
+<h3>Returns<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
 <dl class="simple">
 <dt>int | None</dt><dd><p>The identifier of the last mouse button that was pressed.</p>
 </dd>
@@ -487,8 +478,8 @@ after any input.</p>
 <dt class="sig sig-object py" id="interactive_figure.interactive_figure.get_last_mouse_pos">
 <span class="sig-name descname"><span class="pre">get_last_mouse_pos</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#interactive_figure.interactive_figure.get_last_mouse_pos" title="Link to this definition">#</a></dt>
 <dd><p>Get the last mouse position.</p>
-<section id="id5">
-<h3>Returns<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<section id="id4">
+<h3>Returns<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
 <dl class="simple">
 <dt>(x: float, y: float) | (None, None)</dt><dd><p>The last registered mouse position after any interaction.</p>
 </dd>
@@ -502,8 +493,8 @@ after any input.</p>
 <dd><p>Freeze for the given number of seconds.</p>
 <p>During this period it is not possible to interact
 with the figure. For sub-second timeouts use time.wait() instead.</p>
-<section id="id6">
-<h3>Parameters<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<section id="id5">
+<h3>Parameters<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
 <dl class="simple">
 <dt>timeout<span class="classifier">float</span></dt><dd><p>Number of seconds to wait for.</p>
 </dd>

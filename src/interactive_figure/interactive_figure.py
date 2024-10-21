@@ -64,7 +64,7 @@ def create(hide_labels=False, hide_toolbar=False, **kwargs):
 
         print("Interactive figure: created")
     else:
-        raise RuntimeError("Error: you cannot create multiple interactive figures at the same time.")
+        raise RuntimeError("Interactive figure: ERROR - you cannot create multiple figures")
 
 
 def draw():
@@ -257,7 +257,7 @@ def _check_exists():
         If the figure is not available
     """
     if _state.fig is None:
-        raise RuntimeError("Error: the interactive figure is not available.")
+        raise RuntimeError("Interactive figure: ERROR - figure is not available")
 
 
 def _state_reset_fig():

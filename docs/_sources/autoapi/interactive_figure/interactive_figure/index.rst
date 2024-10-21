@@ -32,18 +32,18 @@ Functions
 Module Contents
 ---------------
 
-.. py:function:: create(aspect_ratio='auto', hide_toolbar=False, **kwargs)
+.. py:function:: create(hide_labels=False, hide_toolbar=False, **kwargs)
 
    Create the interactive figure.
 
    Parameters
    ----------
-   aspect_ratio : str, optional
-       aspect ratio of the Axes, default "auto".
+   hide_labels : bool, optional
+       remove all labels from the figure (makes rendering *much* faster).
    hide_toolbar : bool, optional
        whether to hide the toolbar, default False.
 
-   Remaining arguments will be sent to the figure upon creation.
+   Remaining keyword arguments will be sent to the figure upon creation.
 
    Raises
    ----------
@@ -56,16 +56,9 @@ Module Contents
    Draw contents of the figure.
 
 
-.. py:function:: clear(hide_labels=False, set_limits=True)
+.. py:function:: clear()
 
    Reset contents and layout of the figure.
-
-   Parameters
-   ----------
-   set_limits : bool, optional
-       set the Axes limits to [0, 100].
-   hide_labels : bool, optional
-       remove all labels from the figure.
 
 
 .. py:function:: toggle_fullscreen()
