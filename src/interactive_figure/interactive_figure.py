@@ -98,7 +98,7 @@ def toggle_fullscreen():
     """Toggle fullscreen."""
     _check_exists()
 
-    _state.figure.canvas.manager.full_screen_toggle()
+    _state.fig.canvas.manager.full_screen_toggle()
 
 
 def close():
