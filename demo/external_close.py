@@ -3,6 +3,7 @@
 import interactive_figure as ifig
 
 ifig.create()
-no_number = "no_number"
-int(no_number) # This will raise an exception.
+string_var = "test"
+# Will raise an exception and close the figure.
+int(string_var)
 ifig.wait_for_interaction()

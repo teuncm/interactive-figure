@@ -2,7 +2,7 @@
 
 This package serves for students to learn the basics of Python, Matplotlib and setting up reaction time experiments (visual search task, Stroop task, etc.). For a more accurate timing environment one should refer to e.g. [PsychoPy](https://www.psychopy.org/).
 
-This is currently used at the University of Amsterdam (UvA) in the course *Introduction to Python Programming for Neuroscientists*.
+This is currently used at the University of Amsterdam (UvA) in the courses *Introduction to Python Programming for Neuroscientists* and *Experimentatie - Inleiding Programmeren*.
 
 Package created using [Hatch](https://hatch.pypa.io).
 
@@ -39,13 +39,16 @@ Demos can be found in the *demo* folder on GitHub.
 pipx install hatch
 hatch shell
 
+# Test
+hatch run python demo/usage.py
+
 # Build
 hatch version fix
 hatch build -c
 ./generate_docs.sh
 
 # Publish
-hatch publish
+twine upload -r pypi dist/*
 ```
 
 ## Links

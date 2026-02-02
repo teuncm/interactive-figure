@@ -26,7 +26,7 @@ def run_demo():
         # Exit if q is pressed outside rectangle.
         if x is None or y is None:
             if key == "q":
-                print("Closing...")
+                print("closing...")
                 return
         # Plot keys if pressed inside rectangle.
         else:

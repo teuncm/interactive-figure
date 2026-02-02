@@ -51,7 +51,7 @@ def run_demo():
 
         # Exit if q is pressed outside rectangle.
         if (x is None or y is None) and key == "q":
-            print("Closing...")
+            print("closing...")
             return
 
         ifig.clear()
