@@ -73,7 +73,7 @@ Module Contents
 
 .. py:function:: wait_for_interaction(timeout=-1)
 
-   Wait for interaction. 
+   Wait for interaction.
 
    Optionally use a timeout in seconds.
 
@@ -122,9 +122,9 @@ Module Contents
 
 .. py:function:: wait(timeout)
 
-   Freeze for the given number of seconds. 
+   Freeze for the given number of seconds.
 
-   During this period it is not possible to interact 
+   During this period it is not possible to interact
    with the figure. For sub-second timeouts use time.wait() instead.
 
    Parameters

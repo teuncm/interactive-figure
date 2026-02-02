@@ -1,8 +1,18 @@
-# This demo tests the fullscreen functionality.
+# This demo tests the fullscreen toggle functionality.
 
-from interactive_figure import interactive_figure
+import interactive_figure as ifig
+import matplotlib.pyplot as plt
 
-interactive_figure.create()
-interactive_figure.toggle_fullscreen()
-interactive_figure.wait(1)
-interactive_figure.close()
+ifig.create()
+plt.title("Windowed mode")
+ifig.draw()
+ifig.wait_for_interaction()
+ifig.toggle_fullscreen()
+plt.title("Fullscreen mode")
+ifig.draw()
+ifig.wait_for_interaction()
+ifig.toggle_fullscreen()
+plt.title("Windowed mode")
+ifig.draw()
+ifig.wait_for_interaction()
+ifig.close()

@@ -1,6 +1,6 @@
 # This demo shows a simple reaction time measurement experiment.
 
-from interactive_figure import interactive_figure
+import interactive_figure as ifig
 import matplotlib.pyplot as plt
 import random
 import time
@@ -10,9 +10,9 @@ NUM_DISTRACTORS = 39
 
 
 def main():
-    interactive_figure.create()
+    ifig.create()
     run_demo()
-    interactive_figure.close()
+    ifig.close()
 
 
 def plot_stimulus():
@@ -32,27 +32,29 @@ def plot_stimulus():
 
 def run_demo():
     plt.title("Feedback will appear here.")
-    interactive_figure.draw()
+    ifig.draw()
 
     limit_counter = 0
 
     while True:
         plot_stimulus()
-        interactive_figure.draw()
-        time_before = time.time()
-        interaction_type = interactive_figure.wait_for_interaction(TIME_LIMIT)
-        time_after = time.time()
+        ifig.draw()
 
-        key = interactive_figure.get_last_key_press()
-        x, y = interactive_figure.get_last_mouse_pos()
-        dt = round(time_after - time_before, 3)
+        # Get accurate elapsed time for user interaction.
+        time_before = time.perf_counter()
+        interaction_type = ifig.wait_for_interaction(TIME_LIMIT)
+        time_after = time.perf_counter()
+
+        key = ifig.get_last_key_press()
+        x, y = ifig.get_last_mouse_pos()
+        dt = round(time_after - time_before, 5)
 
         # Exit if q is pressed outside rectangle.
         if (x is None or y is None) and key == "q":
             print("Closing...")
             return
 
-        interactive_figure.clear()
+        ifig.clear()
 
         if interaction_type is None:
             limit_counter += 1
@@ -64,7 +66,7 @@ def run_demo():
             limit_counter = 0
             plt.title(f"key: {key}, dt: {dt}")
 
-        interactive_figure.draw()
+        ifig.draw()
 
 
 if __name__ == "__main__":

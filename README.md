@@ -15,14 +15,14 @@ pip install interactive-figure
 ## Usage
 
 ```python
-from interactive_figure import interactive_figure
+import interactive_figure as ifig
 
-interactive_figure.create()
+ifig.create()
 # Wait until user input is received.
-interactive_figure.wait_for_interaction()
-key = interactive_figure.get_last_key_press()
+ifig.wait_for_interaction()
+key = ifig.get_last_key_press()
 print(f"Pressed key: {key}")
-interactive_figure.close()
+ifig.close()
 ```
 
 Demos can be found in the *demo* folder on GitHub.

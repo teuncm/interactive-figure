@@ -1,27 +1,27 @@
 # This demo shows all the button press registering possibilities.
 
-from interactive_figure import interactive_figure
+import interactive_figure as ifig
 import matplotlib.pyplot as plt
 
 
 def main():
-    interactive_figure.create()
+    ifig.create()
     run_demo()
-    interactive_figure.close()
+    ifig.close()
 
 
 def run_demo():
     plt.title("Feedback will appear here.")
-    interactive_figure.draw()
+    ifig.draw()
 
     while True:
-        interactive_figure.wait_for_interaction()
+        ifig.wait_for_interaction()
 
-        key = interactive_figure.get_last_key_press()
-        mouse = interactive_figure.get_last_mouse_press()
-        x, y = interactive_figure.get_last_mouse_pos()
+        key = ifig.get_last_key_press()
+        mouse = ifig.get_last_mouse_press()
+        x, y = ifig.get_last_mouse_pos()
 
-        interactive_figure.clear()
+        ifig.clear()
 
         # Exit if q is pressed outside rectangle.
         if x is None or y is None:
@@ -47,7 +47,7 @@ def run_demo():
 
         plt.title(f"key: {key}, x: {x}, y: {y}")
 
-        interactive_figure.draw()
+        ifig.draw()
 
 
 if __name__ == "__main__":

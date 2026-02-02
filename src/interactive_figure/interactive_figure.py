@@ -7,7 +7,6 @@ Source: https://github.com/teuncm/interactive-figure
 
 import matplotlib.pyplot as plt
 from types import SimpleNamespace
-import sys
 
 
 def create(hide_labels=False, hide_toolbar=False, **kwargs):
@@ -62,9 +61,9 @@ def create(hide_labels=False, hide_toolbar=False, **kwargs):
         fig.canvas.mpl_connect("button_press_event", _button_press_handler)
         fig.canvas.mpl_connect("close_event", _close_handler)
 
-        print("Interactive figure: created")
+        print("created interactive figure")
     else:
-        raise RuntimeError("Interactive figure: ERROR - you cannot create multiple figures")
+        raise RuntimeError("multiple interactive figures are not supported")
 
 
 def draw():
@@ -105,7 +104,7 @@ def close():
     """Close the figure."""
     _check_exists()
 
-    _state.closed_using_ui = False
+    _state.external_close = False
     plt.close(_state.fig)
 
     # Handle proper closure so that the figure can be reused.
@@ -114,8 +113,8 @@ def close():
 
 
 def wait_for_interaction(timeout=-1):
-    """Wait for interaction. 
-    
+    """Wait for interaction.
+
     Optionally use a timeout in seconds.
 
     Parameters
@@ -217,9 +216,9 @@ def get_last_mouse_pos():
 
 
 def wait(timeout):
-    """Freeze for the given number of seconds. 
-    
-    During this period it is not possible to interact 
+    """Freeze for the given number of seconds.
+
+    During this period it is not possible to interact
     with the figure. For sub-second timeouts use time.wait() instead.
 
     Parameters
@@ -257,7 +256,7 @@ def _check_exists():
         If the figure is not available
     """
     if _state.fig is None:
-        raise RuntimeError("Interactive figure: ERROR - figure is not available")
+        raise RuntimeError("interactive figure must be created first")
 
 
 def _state_reset_fig():
@@ -265,7 +264,7 @@ def _state_reset_fig():
     _state.fig = None
     _state.ax = None
     _state.hide_labels = False
-    _state.closed_using_ui = True
+    _state.external_close = True
 
 
 def _state_reset_press():
@@ -307,18 +306,24 @@ def _button_press_handler(event):
 def _close_handler(event):
     """Exit when the user presses the red x to close the figure
     to prevent an infinite event loop.
-    
+
     Parameters
     ----------
     event
         The event object that was generated internally
     """
-    print("Interactive figure: closed")
+    # Prevent infinite closing loop on MacOS.
+    if _state.closing:
+        return
 
     # Triggered if the UI ('the red x') is used to close the figure.
-    if _state.closed_using_ui:
-        print("Interactive figure: exited script")       
-        sys.exit(0)
+    if _state.external_close:
+        print("closed interactive figure and exited script")
+        _state.closing = True
+
+        raise SystemExit()
+    else:
+        print("closed interactive figure")
 
 
 # Namespace to track the internal state of the interactive figure.
@@ -326,7 +331,8 @@ _state = SimpleNamespace(
     fig=None,
     ax=None,
     hide_labels=False,
-    closed_using_ui=True,
+    external_close=True,
+    closing=False,
     last_keypress=None,
     last_mousepress=None,
     last_mouse_x=None,
