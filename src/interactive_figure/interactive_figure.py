@@ -14,7 +14,6 @@ from matplotlib.figure import Figure
 
 
 def create(
-    *,
     hide_x_labels=False,
     hide_y_labels=False,
     hide_frame=False,
@@ -50,7 +49,8 @@ def create(
         if multiple interactive figures are created at the same time.
     """
     if _state.fig is not None:
-        raise RuntimeError("multiple interactive figures are not supported")
+        message = "multiple interactive figures are not supported"
+        raise RuntimeError(message)
     else:
         if hide_toolbar:
             plt.rcParams["toolbar"] = "None"
@@ -355,7 +355,8 @@ def _check_exists() -> tuple[Figure, Axes]:
     """
     fig, ax = _state.fig, _state.ax
     if fig is None or ax is None:
-        raise RuntimeError("interactive figure must be created first")
+        message = "interactive figure must be created first"
+        raise RuntimeError(message)
     return fig, ax
 
 
@@ -363,7 +364,8 @@ def _get_manager(fig: Figure) -> FigureManagerBase:
     """Return the figure manager, accounting for incomplete canvas type hints."""
     manager = getattr(fig.canvas, "manager", None)
     if not isinstance(manager, FigureManagerBase):
-        raise RuntimeError("interactive figure must have a figure manager")
+        message = "interactive figure must have a figure manager"
+        raise RuntimeError(message)
     return manager
 
 
@@ -422,13 +424,14 @@ def _close_handler(_):
     SystemExit
         If the figure was closed externally and shutdown is not already in progress.
     """
-    # Prevent infinite closing loop on MacOS.
+    # Prevent infinite close callback loop on MacOS.
     if _state.closing:
         return
 
-    # Triggered if an external figure close is triggered.
+    # Cleanup if an external figure close is triggered.
+    # (prevent the terminal from hanging, which is confusing to students)
     if _state.external_close:
-        print("manually closed interactive figure and automatically exited script")
+        print("manually closed interactive figure, exiting script...")
         _state.closing = True
 
         raise SystemExit()

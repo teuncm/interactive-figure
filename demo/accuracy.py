@@ -1,9 +1,11 @@
 # This demo shows a simple reaction time measurement experiment.
 
-import interactive_figure as ifig
-import matplotlib.pyplot as plt
 import random
 import time
+
+import matplotlib.pyplot as plt
+
+import interactive_figure as ifig
 
 TIME_LIMIT = 2
 NUM_DISTRACTORS = 39
@@ -21,13 +23,13 @@ def plot_stimulus():
     y = [random.random()*100 for _ in range(NUM_DISTRACTORS)]
 
     # Plot distractors.
-    plt.plot(x, y, "k.", markersize=12, markerfacecolor="none", linestyle='none')
+    plt.plot(x, y, "k.", markersize=12, markerfacecolor="none", linestyle="none")
 
     x = random.random()*100
     y = random.random()*100
 
     # Plot target.
-    plt.plot(x, y, "b^", markersize=12, markerfacecolor="none", linestyle='none')
+    plt.plot(x, y, "b^", markersize=12, markerfacecolor="none", linestyle="none")
 
 
 def run_demo():

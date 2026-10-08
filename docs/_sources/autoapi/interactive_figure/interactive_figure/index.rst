@@ -32,7 +32,7 @@ Functions
 Module Contents
 ---------------
 
-.. py:function:: create(*, hide_x_labels=False, hide_y_labels=False, hide_frame=False, hide_toolbar=False, layout='constrained', **kwargs)
+.. py:function:: create(hide_x_labels=False, hide_y_labels=False, hide_frame=False, hide_toolbar=False, layout='constrained', **kwargs)
 
    Create the interactive figure.
 

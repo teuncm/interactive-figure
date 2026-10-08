@@ -1,10 +1,11 @@
 # This is a timing-based stress test for the interactive figure.
 
-import random
-import interactive_figure as ifig
-import matplotlib.pyplot as plt
-import time
 import math
+import random
+
+import matplotlib.pyplot as plt
+
+import interactive_figure as ifig
 
 
 def main():
@@ -28,7 +29,7 @@ def stress_test():
 
         x = cx + math.cos(cur_angle) * radius
         y = cy + math.sin(cur_angle) * radius
-        plt.plot(x, y, marker="o", markersize=15, markerfacecolor="blue", linestyle='none', alpha=0.5)
+        plt.plot(x, y, marker="o", markersize=15, markerfacecolor="blue", linestyle="none", alpha=0.5)
         plt.plot([cx, x], [cy, y], marker=None, color="red", alpha=0.5, linewidth=3)
 
         for _ in range(num_objects):
@@ -36,12 +37,14 @@ def stress_test():
             dist = random.random() * radius
             ox = cx + math.cos(angle) * dist
             oy = cy + math.sin(angle) * dist
-            plt.plot(ox, oy, marker="o", markersize=10, markerfacecolor="green", linestyle='none', linewidth=10, alpha=0.3)
+            plt.plot(ox, oy, marker="o", markersize=10, markerfacecolor="green", linestyle="none",
+                     linewidth=10, alpha=0.3)
 
         ifig.draw()
 
         cur_angle += -(math.pi / 90)
         # Note that exiting while in the loop will cause a cleanup error.
+        # (This is because the figure is still open and the cleanup process is not complete.)
         # To exit cleanly, press 'q' to close the figure.
         plt.pause(0.01)
 

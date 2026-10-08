@@ -1,7 +1,8 @@
 # This demo tests the fullscreen toggle functionality.
 
-import interactive_figure as ifig
 import matplotlib.pyplot as plt
+
+import interactive_figure as ifig
 
 
 def main():

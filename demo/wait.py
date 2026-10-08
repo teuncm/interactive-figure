@@ -1,7 +1,12 @@
 # This demo shows all the button press registering possibilities.
 
-import interactive_figure as ifig
 import matplotlib.pyplot as plt
+
+import interactive_figure as ifig
+
+MOUSE_LEFT = 1
+MOUSE_MIDDLE = 2
+MOUSE_RIGHT = 3
 
 
 def main():
@@ -33,13 +38,13 @@ def run_demo():
             x = round(x, 3)
             y = round(y, 3)
 
-            if not key is None:
+            if key is not None:
                 plt.text(x, y, key, ha="center", va="center", fontsize="large")
-            elif mouse == 1:
+            elif mouse == MOUSE_LEFT:
                 plt.plot(x, y, "r.", ms=13)
-            elif mouse == 2:
+            elif mouse == MOUSE_MIDDLE:
                 plt.plot(x, y, "g.", ms=13)
-            elif mouse == 3:
+            elif mouse == MOUSE_RIGHT:
                 plt.plot(x, y, "b.", ms=13)
             else:
                 # Any other mouse button.
