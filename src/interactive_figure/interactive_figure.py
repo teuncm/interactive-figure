@@ -6,7 +6,6 @@ Source: https://github.com/teuncm/interactive-figure
 """
 
 from dataclasses import dataclass
-from typing import Optional, Tuple
 
 import matplotlib.pyplot as plt
 from matplotlib.axes import Axes
@@ -269,7 +268,7 @@ def wait(timeout):
 #
 
 
-def _check_exists() -> Tuple[Figure, Axes]:
+def _check_exists() -> tuple[Figure, Axes]:
     """Return the figure and axes if the interactive figure exists.
 
     Raises
@@ -347,17 +346,17 @@ def _close_handler(_):
 class _State:
     """Track the figure, display options, and last registered interaction."""
 
-    fig: Optional[Figure] = None
-    ax: Optional[Axes] = None
+    fig: Figure | None = None
+    ax: Axes | None = None
     hide_x_labels: bool = False
     hide_y_labels: bool = False
     hide_frame: bool = False
     external_close: bool = True
     closing: bool = False
-    last_keypress: Optional[str] = None
-    last_mousepress: Optional[MouseButton] = None
-    last_mouse_x: Optional[float] = None
-    last_mouse_y: Optional[float] = None
+    last_keypress: str | None = None
+    last_mousepress: MouseButton | None = None
+    last_mouse_x: float | None = None
+    last_mouse_y: float | None = None
 
     def reset_fig(self):
         """Reset figure information and display options."""
