@@ -5,8 +5,8 @@ interactive_figure.interactive_figure
 
 .. autoapi-nested-parse::
 
-   This module provides functions to create and interact with a Matplotlib figure. The figure registers mouse presses, keyboard input and the location of the mouse
-   after any input.
+   This module provides functions to create and interact with a Matplotlib figure. The figure registers mouse presses,
+   keyboard input and the location of the mouse after any input.
 
    Source: https://github.com/teuncm/interactive-figure
 
@@ -32,43 +32,86 @@ Functions
 Module Contents
 ---------------
 
-.. py:function:: create(hide_labels=False, hide_toolbar=False, **kwargs)
+.. py:function:: create(*, hide_x_labels=False, hide_y_labels=False, hide_frame=False, hide_toolbar=False, layout='constrained', **kwargs)
 
    Create the interactive figure.
 
    Parameters
    ----------
-   hide_labels : bool, optional
-       remove all labels from the figure (makes rendering *much* faster).
+   hide_x_labels : bool, optional
+       Hide the x-axis labels, default False.
+   hide_y_labels : bool, optional
+       Hide the y-axis labels, default False.
+   hide_frame : bool, optional
+       Hide the frame, default False.
    hide_toolbar : bool, optional
-       whether to hide the toolbar, default False.
+       Hide the toolbar, default False.
+   layout : str, optional
+       The layout mode for the figure, default 'constrained'. See:
+       https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html
 
-   Remaining keyword arguments will be sent to the figure upon creation.
+   Remaining keyword arguments will be sent to the Matplotlib figure.
+
+   Returns
+   -------
+   None
 
    Raises
    ----------
    RuntimeError
-       if multiple interactive figures are created.
+       if multiple interactive figures are created at the same time.
 
 
 .. py:function:: draw()
 
    Draw contents of the figure.
 
+   Parameters
+   ----------
+   None
+
+   Returns
+   -------
+   None
+
 
 .. py:function:: clear()
 
-   Reset contents and layout of the figure.
+   Clear, but don't draw() the figure.
+
+   Parameters
+   ----------
+   None
+
+   Returns
+   -------
+   None
 
 
 .. py:function:: toggle_fullscreen()
 
-   Toggle fullscreen.
+   Toggle fullscreen on/off.
+
+   Parameters
+   ----------
+   None
+
+   Returns
+   -------
+   None
 
 
 .. py:function:: close()
 
    Close the figure.
+
+   Parameters
+   ----------
+   None
+
+   Returns
+   -------
+   None
 
 
 .. py:function:: wait_for_interaction(timeout=-1)
@@ -94,6 +137,10 @@ Module Contents
 
    Get the last key press in lowercase.
 
+   Parameters
+   ----------
+   None
+
    Returns
    -------
    str | None
@@ -104,6 +151,10 @@ Module Contents
 
    Get the ID of the last mouse press.
 
+   Parameters
+   ----------
+   None
+
    Returns
    -------
    int | None
@@ -113,6 +164,10 @@ Module Contents
 .. py:function:: get_last_mouse_pos()
 
    Get the last mouse position.
+
+   Parameters
+   ----------
+   None
 
    Returns
    -------
@@ -131,5 +186,9 @@ Module Contents
    ----------
    timeout : float
        Number of seconds to wait for.
+
+   Returns
+   -------
+   None
 
 
