@@ -1,16 +1,15 @@
 [build-system]
-requires = ["uv_build>=0.10.9,<0.11"]
+requires = ["uv_build>=0.12.23,<0.13"]
 build-backend = "uv_build"
 
 [project]
 name = "interactive-figure"
-version = "0.6.0"
+version = "0.6.1"
 description = "Create interactive Matplotlib figures!"
 requires-python = ">=3.11"
 readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE.txt"]
-keywords = []
 authors = [
   { name = "Teun Mathijssen", email = "teun.c.mathijssen@gmail.com" },
 ]
@@ -80,10 +79,6 @@ select = [
 ignore = [
   # Allow non-abstract empty methods in abstract base classes
   "B027",
-  # Allow boolean positional values in function calls, like `dict.get(... True)`
-  "FBT003",
-  # Ignore checks for possible passwords
-  "S105", "S106", "S107",
   # Ignore complexity
   "C901", "PLR0911", "PLR0912", "PLR0913", "PLR0915",
 ]
@@ -97,7 +92,3 @@ known-first-party = ["interactive_figure"]
 
 [tool.ruff.lint.flake8-tidy-imports]
 ban-relative-imports = "all"
-
-[tool.ruff.lint.per-file-ignores]
-# Tests can use magic values, assertions, and relative imports
-"tests/**/*" = ["PLR2004", "S101", "TID252"]
