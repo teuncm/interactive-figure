@@ -82,8 +82,11 @@ def create(
         # https://matplotlib.org/stable/users/explain/figure/interactive_guide.html
         # For mouse buttons, see:
         # https://matplotlib.org/stable/api/backend_bases_api.html#matplotlib.backend_bases.MouseButton
-        fig.canvas.mpl_disconnect(manager.key_press_handler_id)
-        fig.canvas.mpl_disconnect(manager.button_press_handler_id)
+        if manager.key_press_handler_id is not None:
+            fig.canvas.mpl_disconnect(manager.key_press_handler_id)
+        if manager.button_press_handler_id is not None:
+            fig.canvas.mpl_disconnect(manager.button_press_handler_id)
+
         fig.canvas.mpl_connect("key_press_event", _key_press_handler)
         fig.canvas.mpl_connect("button_press_event", _button_press_handler)
         fig.canvas.mpl_connect("close_event", _close_handler)
@@ -104,12 +107,11 @@ def draw():
     """
     fig, _ = _check_exists()
 
-    canvas = fig.canvas
     # Mark canvas for a draw.
-    canvas.draw_idle()
+    fig.canvas.draw_idle()
     # Force update the GUI. This is when the drawing actually happens
     # in the backend.
-    canvas.flush_events()
+    fig.canvas.flush_events()
 
 
 def clear():
@@ -198,7 +200,6 @@ def wait_for_interaction(timeout=-1):
         - None if no input was given within the timeout.
     """
     fig, _ = _check_exists()
-    canvas = fig.canvas
 
     # Reimplementation of:
     # figure.Figure.waitforbuttonpress()
@@ -213,7 +214,7 @@ def wait_for_interaction(timeout=-1):
         Parameters
         ----------
         ev : matplotlib.backend_bases.Event
-            The mouse or keyboard event received from the canvas.
+            The mouse or keyboard event received from the fig.canvas.
 
         Returns
         -------
@@ -221,22 +222,22 @@ def wait_for_interaction(timeout=-1):
         """
         nonlocal event
         event = ev
-        canvas.stop_event_loop()
+        fig.canvas.stop_event_loop()
 
     # Connect the events to the on_event function call.
     cids = [
-    canvas.mpl_connect("button_press_event", handler),
-    canvas.mpl_connect("key_press_event", handler),
+    fig.canvas.mpl_connect("button_press_event", handler),
+    fig.canvas.mpl_connect("key_press_event", handler),
     ]
 
     try:
         # Start event loop.
-        canvas.start_event_loop(timeout)
+        fig.canvas.start_event_loop(timeout)
     # Run even on exception like ctrl-c.
     finally:
         # Disconnect the callbacks.
         for cid in cids:
-            canvas.mpl_disconnect(cid)
+            fig.canvas.mpl_disconnect(cid)
 
     interaction_type = None if event is None else event.name == "key_press_event"
 
