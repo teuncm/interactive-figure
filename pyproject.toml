@@ -4,7 +4,7 @@ build-backend = "uv_build"
 
 [project]
 name = "interactive-figure"
-version = "0.6.1"
+version = "0.6.2"
 description = "Create interactive Matplotlib figures!"
 requires-python = ">=3.11"
 readme = "README.md"
@@ -67,7 +67,6 @@ select = [
   "N",
   "PLC",
   "PLE",
-  "PLR",
   "PLW",
   "Q",
   "RUF",

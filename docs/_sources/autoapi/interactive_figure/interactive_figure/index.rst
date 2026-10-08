@@ -32,7 +32,7 @@ Functions
 Module Contents
 ---------------
 
-.. py:function:: create(hide_x_labels=False, hide_y_labels=False, hide_frame=False, hide_toolbar=False, layout='constrained', **kwargs)
+.. py:function:: create(hide_x_labels=False, hide_y_labels=False, hide_top_frame=False, hide_right_frame=False, hide_bottom_frame=False, hide_left_frame=False, hide_toolbar=False, layout='constrained', **kwargs)
 
    Create the interactive figure.
 
@@ -42,8 +42,14 @@ Module Contents
        Hide the x-axis labels, default False.
    hide_y_labels : bool, optional
        Hide the y-axis labels, default False.
-   hide_frame : bool, optional
-       Hide the frame, default False.
+   hide_top_frame : bool, optional
+       Hide the top edge of the axes frame, default False.
+   hide_right_frame : bool, optional
+       Hide the right edge of the axes frame, default False.
+   hide_bottom_frame : bool, optional
+       Hide the bottom edge of the axes frame, default False.
+   hide_left_frame : bool, optional
+       Hide the left edge of the axes frame, default False.
    hide_toolbar : bool, optional
        Hide the toolbar, default False.
    layout : str, optional

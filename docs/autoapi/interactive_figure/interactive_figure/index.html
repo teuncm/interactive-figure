@@ -384,7 +384,7 @@ keyboard input and the location of the mouse after any input.</p>
 <h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#interactive_figure.interactive_figure.create" title="interactive_figure.interactive_figure.create"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create</span></code></a>([hide_x_labels, hide_y_labels, hide_frame, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#interactive_figure.interactive_figure.create" title="interactive_figure.interactive_figure.create"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create</span></code></a>([hide_x_labels, hide_y_labels, hide_top_frame, ...])</p></td>
 <td><p>Create the interactive figure.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#interactive_figure.interactive_figure.draw" title="interactive_figure.interactive_figure.draw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw</span></code></a>()</p></td>
@@ -422,7 +422,7 @@ keyboard input and the location of the mouse after any input.</p>
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="interactive_figure.interactive_figure.create">
-<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hide_x_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hide_y_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hide_frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hide_toolbar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'constrained'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interactive_figure.interactive_figure.create" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hide_x_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hide_y_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hide_top_frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hide_right_frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hide_bottom_frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hide_left_frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hide_toolbar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'constrained'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#interactive_figure.interactive_figure.create" title="Link to this definition">#</a></dt>
 <dd><p>Create the interactive figure.</p>
 <section id="parameters">
 <h3>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">#</a></h3>
@@ -431,7 +431,13 @@ keyboard input and the location of the mouse after any input.</p>
 </dd>
 <dt>hide_y_labels<span class="classifier">bool, optional</span></dt><dd><p>Hide the y-axis labels, default False.</p>
 </dd>
-<dt>hide_frame<span class="classifier">bool, optional</span></dt><dd><p>Hide the frame, default False.</p>
+<dt>hide_top_frame<span class="classifier">bool, optional</span></dt><dd><p>Hide the top edge of the axes frame, default False.</p>
+</dd>
+<dt>hide_right_frame<span class="classifier">bool, optional</span></dt><dd><p>Hide the right edge of the axes frame, default False.</p>
+</dd>
+<dt>hide_bottom_frame<span class="classifier">bool, optional</span></dt><dd><p>Hide the bottom edge of the axes frame, default False.</p>
+</dd>
+<dt>hide_left_frame<span class="classifier">bool, optional</span></dt><dd><p>Hide the left edge of the axes frame, default False.</p>
 </dd>
 <dt>hide_toolbar<span class="classifier">bool, optional</span></dt><dd><p>Hide the toolbar, default False.</p>
 </dd>

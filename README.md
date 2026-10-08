@@ -33,6 +33,14 @@ print(f"Pressed key: {key}")
 ifig.close()
 ```
 
+Each edge of the axes frame can be hidden independently. For example, to keep only the bottom and left edges:
+
+```python
+ifig.create(hide_top_frame=True, hide_right_frame=True)
+```
+
+The four options are `hide_top_frame`, `hide_right_frame`, `hide_bottom_frame`, and `hide_left_frame`, all defaulting to `False`. Set all four to `True` to hide the entire frame. Axis labels are controlled separately with `hide_x_labels` and `hide_y_labels`. Frame options are reapplied when `ifig.clear()` is called.
+
 Demos can be found in the *demo* folder on GitHub.
 
 ## Limitations

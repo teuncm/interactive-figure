@@ -16,7 +16,10 @@ from matplotlib.figure import Figure
 def create(
     hide_x_labels=False,
     hide_y_labels=False,
-    hide_frame=False,
+    hide_top_frame=False,
+    hide_right_frame=False,
+    hide_bottom_frame=False,
+    hide_left_frame=False,
     hide_toolbar=False,
     layout="constrained",
     **kwargs,
@@ -29,8 +32,14 @@ def create(
         Hide the x-axis labels, default False.
     hide_y_labels : bool, optional
         Hide the y-axis labels, default False.
-    hide_frame : bool, optional
-        Hide the frame, default False.
+    hide_top_frame : bool, optional
+        Hide the top edge of the axes frame, default False.
+    hide_right_frame : bool, optional
+        Hide the right edge of the axes frame, default False.
+    hide_bottom_frame : bool, optional
+        Hide the bottom edge of the axes frame, default False.
+    hide_left_frame : bool, optional
+        Hide the left edge of the axes frame, default False.
     hide_toolbar : bool, optional
         Hide the toolbar, default False.
     layout : str, optional
@@ -57,7 +66,10 @@ def create(
 
         _state.hide_x_labels = hide_x_labels
         _state.hide_y_labels = hide_y_labels
-        _state.hide_frame = hide_frame
+        _state.hide_top_frame = hide_top_frame
+        _state.hide_right_frame = hide_right_frame
+        _state.hide_bottom_frame = hide_bottom_frame
+        _state.hide_left_frame = hide_left_frame
 
         # Disable interactive mode for explicit control over drawing. See:
         # https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.isinteractive.html#matplotlib.pyplot.isinteractive
@@ -132,11 +144,14 @@ def clear():
     ax.set_ylim(0, 100)
 
     # Hide axis spines.
-    if _state.hide_frame:
+    if _state.hide_top_frame:
         ax.spines["top"].set_visible(False)
+    if _state.hide_right_frame:
         ax.spines["right"].set_visible(False)
-        ax.spines["left"].set_visible(False)
+    if _state.hide_bottom_frame:
         ax.spines["bottom"].set_visible(False)
+    if _state.hide_left_frame:
+        ax.spines["left"].set_visible(False)
 
     # Hide axis labels. Setting empty ticks makes drawing faster.
     if _state.hide_x_labels:
@@ -208,6 +223,7 @@ def wait_for_interaction(timeout=-1):
 
     # Handler to stop blocking event loop.
     event = None
+
     def handler(ev):
         """Record the interaction and stop the event loop.
 
@@ -226,8 +242,8 @@ def wait_for_interaction(timeout=-1):
 
     # Connect the events to the on_event function call.
     cids = [
-    fig.canvas.mpl_connect("button_press_event", handler),
-    fig.canvas.mpl_connect("key_press_event", handler),
+        fig.canvas.mpl_connect("button_press_event", handler),
+        fig.canvas.mpl_connect("key_press_event", handler),
     ]
 
     try:
@@ -447,7 +463,10 @@ class _State:
     ax: Axes | None = None
     hide_x_labels: bool = False
     hide_y_labels: bool = False
-    hide_frame: bool = False
+    hide_top_frame: bool = False
+    hide_right_frame: bool = False
+    hide_bottom_frame: bool = False
+    hide_left_frame: bool = False
     external_close: bool = True
     closing: bool = False
     last_keypress: str | None = None
@@ -470,7 +489,10 @@ class _State:
         self.ax = None
         self.hide_x_labels = False
         self.hide_y_labels = False
-        self.hide_frame = False
+        self.hide_top_frame = False
+        self.hide_right_frame = False
+        self.hide_bottom_frame = False
+        self.hide_left_frame = False
         self.external_close = True
         self.closing = False
 
