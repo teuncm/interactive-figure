@@ -1,51 +1,75 @@
 """
-This module provides functions to create and interact with a Matplotlib figure. The figure registers mouse presses, keyboard input and the location of the mouse
-after any input.
+This module provides functions to create and interact with a Matplotlib figure. The figure registers mouse presses,
+keyboard input and the location of the mouse after any input.
 
 Source: https://github.com/teuncm/interactive-figure
 """
 
+from dataclasses import dataclass
+from typing import Optional, Tuple
+
 import matplotlib.pyplot as plt
-from types import SimpleNamespace
+from matplotlib.axes import Axes
+from matplotlib.backend_bases import FigureManagerBase, MouseButton
+from matplotlib.figure import Figure
 
 
-def create(hide_labels=False, hide_toolbar=False, **kwargs):
+def create(
+    *,
+    hide_x_labels=False,
+    hide_y_labels=False,
+    hide_frame=False,
+    hide_toolbar=False,
+    layout="constrained",
+    **kwargs,
+):
     """Create the interactive figure.
 
     Parameters
     ----------
-    hide_labels : bool, optional
-        remove all labels from the figure (makes rendering *much* faster).
+    hide_x_labels : bool, optional
+        Hide the x-axis labels, default False.
+    hide_y_labels : bool, optional
+        Hide the y-axis labels, default False.
+    hide_frame : bool, optional
+        Hide the frame, default False.
     hide_toolbar : bool, optional
-        whether to hide the toolbar, default False.
+        Hide the toolbar, default False.
+    layout : str, optional
+        The layout mode for the figure, default 'constrained'. See:
+        https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html
 
-    Remaining keyword arguments will be sent to the figure upon creation.
+    Remaining keyword arguments will be sent to the Matplotlib figure.
 
     Raises
     ----------
     RuntimeError
-        if multiple interactive figures are created.
+        if multiple interactive figures are created at the same time.
     """
-    if _state.fig is None:
+    if _state.fig is not None:
+        raise RuntimeError("multiple interactive figures are not supported")
+    else:
         if hide_toolbar:
             plt.rcParams["toolbar"] = "None"
 
-        if hide_labels:
-            _state.hide_labels = True
+        _state.hide_x_labels = hide_x_labels
+        _state.hide_y_labels = hide_y_labels
+        _state.hide_frame = hide_frame
 
         # Disable interactive mode for explicit control over drawing. See:
         # https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.isinteractive.html#matplotlib.pyplot.isinteractive
         plt.ioff()
 
-        _state.fig = fig = plt.figure(**kwargs)
-        fig.canvas.manager.set_window_title("Interactive Figure")
+        _state.fig = fig = plt.figure(layout=layout, **kwargs)
+        manager = _get_manager(fig)
+        manager.set_window_title("Interactive Figure")
         # Create drawable axis.
-        _state.ax = ax = plt.gca()
+        _state.ax = plt.gca()
 
         # Show figure but allow the main thread to continue.
         plt.show(block=False)
 
-        # Reset plot state and draw to obtain focus.
+        # Reset plot state and draw to (attempt to) obtain focus.
         clear()
         draw()
 
@@ -55,22 +79,20 @@ def create(hide_labels=False, hide_toolbar=False, **kwargs):
         # https://matplotlib.org/stable/users/explain/figure/interactive_guide.html
         # For mouse buttons, see:
         # https://matplotlib.org/stable/api/backend_bases_api.html#matplotlib.backend_bases.MouseButton
-        fig.canvas.mpl_disconnect(fig.canvas.manager.key_press_handler_id)
-        fig.canvas.mpl_disconnect(fig.canvas.manager.button_press_handler_id)
+        fig.canvas.mpl_disconnect(manager.key_press_handler_id)
+        fig.canvas.mpl_disconnect(manager.button_press_handler_id)
         fig.canvas.mpl_connect("key_press_event", _key_press_handler)
         fig.canvas.mpl_connect("button_press_event", _button_press_handler)
         fig.canvas.mpl_connect("close_event", _close_handler)
 
         print("created interactive figure")
-    else:
-        raise RuntimeError("multiple interactive figures are not supported")
 
 
 def draw():
     """Draw contents of the figure."""
-    _check_exists()
+    fig, _ = _check_exists()
 
-    canvas = _state.fig.canvas
+    canvas = fig.canvas
     # Mark canvas for a draw.
     canvas.draw_idle()
     # Force update the GUI. This is when the drawing actually happens
@@ -79,37 +101,44 @@ def draw():
 
 
 def clear():
-    """Reset contents and layout of the figure."""
-    _check_exists()
-
-    ax = _state.ax
+    """Reset contents, objects and layout of the figure, but does not draw() the figure."""
+    _, ax = _check_exists()
     ax.clear()
 
-    ax.set_xlim([0, 100])
-    ax.set_ylim([0, 100])
+    ax.set_xlim(0, 100)
+    ax.set_ylim(0, 100)
 
-    if _state.hide_labels:
+    # Hide axis spines.
+    if _state.hide_frame:
+        ax.spines["top"].set_visible(False)
+        ax.spines["right"].set_visible(False)
+        ax.spines["left"].set_visible(False)
+        ax.spines["bottom"].set_visible(False)
+
+    # Hide axis labels. Setting empty ticks makes drawing faster.
+    if _state.hide_x_labels:
         ax.set_xticks([])
+    if _state.hide_y_labels:
         ax.set_yticks([])
 
 
 def toggle_fullscreen():
-    """Toggle fullscreen."""
-    _check_exists()
+    """Toggle fullscreen on/off."""
+    fig, _ = _check_exists()
 
-    _state.fig.canvas.manager.full_screen_toggle()
+    _get_manager(fig).full_screen_toggle()
 
 
 def close():
     """Close the figure."""
-    _check_exists()
+    fig, _ = _check_exists()
 
     _state.external_close = False
-    plt.close(_state.fig)
+    plt.close(fig)
 
     # Handle proper closure so that the figure can be reused.
-    _state_reset_fig()
-    _state_reset_press()
+    _state.reset_fig()
+    _state.reset_press()
 
 
 def wait_for_interaction(timeout=-1):
@@ -129,7 +158,8 @@ def wait_for_interaction(timeout=-1):
         - False if a mouse button was pressed.
         - None if no input was given within the timeout.
     """
-    _check_exists()
+    fig, _ = _check_exists()
+    canvas = fig.canvas
 
     # Reimplementation of:
     # figure.Figure.waitforbuttonpress()
@@ -143,25 +173,26 @@ def wait_for_interaction(timeout=-1):
     def simple_handler(ev):
         nonlocal event
         event = ev
-        _state.fig.canvas.stop_event_loop()
+        canvas.stop_event_loop()
 
     # Connect event handlers and save callback ids.
     callback_ids = [
-        _state.fig.canvas.mpl_connect(name, simple_handler) for name in ["button_press_event", "key_press_event"]
+        canvas.mpl_connect(name, simple_handler)
+        for name in ["button_press_event", "key_press_event"]
     ]
     try:
         # Start a blocking event loop.
-        _state.fig.canvas.start_event_loop(timeout=timeout)
+        canvas.start_event_loop(timeout=timeout)
     finally:
         # Disconnect handlers.
         for callback_id in callback_ids:
-            _state.fig.canvas.mpl_disconnect(callback_id)
+            canvas.mpl_disconnect(callback_id)
 
     interaction_type = None if event is None else event.name == "key_press_event"
 
     if interaction_type is None:
         # No button was pressed, so reset the press state.
-        _state_reset_press()
+        _state.reset_press()
 
     return interaction_type
 
@@ -226,53 +257,38 @@ def wait(timeout):
     timeout : float
         Number of seconds to wait for.
     """
-    _check_exists()
+    fig, _ = _check_exists()
 
-    _state.fig.canvas.start_event_loop(timeout=timeout)
+    fig.canvas.start_event_loop(timeout=timeout)
     # Reset the press state.
-    _state_reset_press()
+    _state.reset_press()
 
 
-# HIDDEN METHODS
+#
+# PRIVATE METHODS
+#
 
 
-def _get_state():
-    """Get all state information of the interactive figure.
-
-    Returns
-    -------
-    SimpleNamespace
-        Namespace with figure state information
-    """
-    return _state
-
-
-def _check_exists():
-    """Check if the interactive figure exists.
+def _check_exists() -> Tuple[Figure, Axes]:
+    """Return the figure and axes if the interactive figure exists.
 
     Raises
     ------
     RuntimeError
         If the figure is not available
     """
-    if _state.fig is None:
+    fig, ax = _state.fig, _state.ax
+    if fig is None or ax is None:
         raise RuntimeError("interactive figure must be created first")
+    return fig, ax
 
 
-def _state_reset_fig():
-    """Reset figure information."""
-    _state.fig = None
-    _state.ax = None
-    _state.hide_labels = False
-    _state.external_close = True
-
-
-def _state_reset_press():
-    """Reset last registered press information."""
-    _state.last_keypress = None
-    _state.last_mousepress = None
-    _state.last_mouse_x = None
-    _state.last_mouse_y = None
+def _get_manager(fig: Figure) -> FigureManagerBase:
+    """Return the figure manager, accounting for incomplete canvas type hints."""
+    manager = getattr(fig.canvas, "manager", None)
+    if not isinstance(manager, FigureManagerBase):
+        raise RuntimeError("interactive figure must have a figure manager")
+    return manager
 
 
 def _key_press_handler(event):
@@ -284,6 +300,7 @@ def _key_press_handler(event):
         The event object that was generated internally
     """
     _state.last_keypress = event.key
+    # Mouse press data is not provided for key press event.
     _state.last_mousepress = None
     _state.last_mouse_x = event.xdata
     _state.last_mouse_y = event.ydata
@@ -303,22 +320,22 @@ def _button_press_handler(event):
     _state.last_mouse_y = event.ydata
 
 
-def _close_handler(event):
+def _close_handler(_):
     """Exit when the user presses the red x to close the figure
     to prevent an infinite event loop.
 
     Parameters
     ----------
-    event
+    _
         The event object that was generated internally
     """
     # Prevent infinite closing loop on MacOS.
     if _state.closing:
         return
 
-    # Triggered if the UI ('the red x') is used to close the figure.
+    # Triggered if an external figure close is triggered.
     if _state.external_close:
-        print("closed interactive figure and exited script")
+        print("manually closed interactive figure and automatically exited script")
         _state.closing = True
 
         raise SystemExit()
@@ -326,15 +343,39 @@ def _close_handler(event):
         print("closed interactive figure")
 
 
-# Namespace to track the internal state of the interactive figure.
-_state = SimpleNamespace(
-    fig=None,
-    ax=None,
-    hide_labels=False,
-    external_close=True,
-    closing=False,
-    last_keypress=None,
-    last_mousepress=None,
-    last_mouse_x=None,
-    last_mouse_y=None,
-)
+@dataclass
+class _State:
+    """Track the figure, display options, and last registered interaction."""
+
+    fig: Optional[Figure] = None
+    ax: Optional[Axes] = None
+    hide_x_labels: bool = False
+    hide_y_labels: bool = False
+    hide_frame: bool = False
+    external_close: bool = True
+    closing: bool = False
+    last_keypress: Optional[str] = None
+    last_mousepress: Optional[MouseButton] = None
+    last_mouse_x: Optional[float] = None
+    last_mouse_y: Optional[float] = None
+
+    def reset_fig(self):
+        """Reset figure information and display options."""
+        self.fig = None
+        self.ax = None
+        self.hide_x_labels = False
+        self.hide_y_labels = False
+        self.hide_frame = False
+        self.external_close = True
+        self.closing = False
+
+    def reset_press(self):
+        """Reset last registered press information."""
+        self.last_keypress = None
+        self.last_mousepress = None
+        self.last_mouse_x = None
+        self.last_mouse_y = None
+
+
+# Track the state of the interactive figure.
+_state = _State()
