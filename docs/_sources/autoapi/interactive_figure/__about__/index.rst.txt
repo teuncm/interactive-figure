@@ -1,8 +1,0 @@
-:orphan:
-
-:py:mod:`interactive_figure.__about__`
-======================================
-
-.. py:module:: interactive_figure.__about__
-
-

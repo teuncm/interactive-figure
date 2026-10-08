@@ -4,7 +4,7 @@ This package serves for students to learn the basics of Python, Matplotlib and s
 
 This is currently used at the University of Amsterdam (UvA) in the courses *Introduction to Python Programming for Neuroscientists* and *Experimentatie - Inleiding Programmeren*.
 
-Package created using [Hatch](https://hatch.pypa.io).
+Development and packaging are managed with [uv](https://docs.astral.sh/uv/).
 
 ## Installation
 
@@ -34,22 +34,39 @@ Demos can be found in the *demo* folder on GitHub.
 
 ## Development
 
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/) and use Python 3.11 or newer.
+
 ```bash
-# Setup
-pipx install hatch
-hatch shell
+# Create the project environment and install development tools.
+uv sync
 
-# Test
-hatch run python demo/usage.py
+# Run a demo (requires a graphical desktop).
+uv run python demo/usage.py
 
-# Build
-hatch version fix
-hatch build -c
+# Check formatting, lint, and types.
+uv run black --check --diff .
+uv run ruff check .
+uv run mypy src/interactive_figure
+
+# Format and fix lint issues.
+uv run black .
+uv run ruff check --fix .
+
+# Build documentation with the docs dependency group.
 ./generate_docs.sh
 
-# Publish
-twine upload -r pypi dist/*
+# Set the next release version in pyproject.toml.
+uv version 0.6.0
+
+# Build a wheel and source distribution.
+uv build
+
+# Publish this release to PyPI using a PyPI API token.
+# Set UV_PUBLISH_TOKEN in your environment before running this command.
+uv publish dist/interactive_figure-0.6.0*
 ```
+
+The package version is maintained in `pyproject.toml`. Commit `uv.lock` to keep development dependencies reproducible. There is currently no automated test suite; use the demos to check GUI behavior.
 
 ## Links
 

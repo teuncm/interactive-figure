@@ -100,7 +100,7 @@ def draw():
 
 
 def clear():
-    """Reset contents, objects and layout of the figure, but does not draw() the figure."""
+    """Clear, but don't draw() the figure."""
     _, ax = _check_exists()
     ax.clear()
 
