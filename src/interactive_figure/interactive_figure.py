@@ -9,7 +9,7 @@ from dataclasses import dataclass
 
 import matplotlib.pyplot as plt
 from matplotlib.axes import Axes
-from matplotlib.backend_bases import FigureManagerBase, MouseButton
+from matplotlib.backend_bases import Event, FigureManagerBase, MouseButton
 from matplotlib.figure import Figure
 
 
@@ -23,7 +23,7 @@ def create(
     hide_toolbar=False,
     layout="constrained",
     **kwargs,
-):
+) -> None:
     """Create the interactive figure.
 
     Parameters
@@ -106,7 +106,7 @@ def create(
         print("created interactive figure")
 
 
-def draw():
+def draw() -> None:
     """Draw contents of the figure.
 
     Parameters
@@ -126,7 +126,7 @@ def draw():
     fig.canvas.flush_events()
 
 
-def clear():
+def clear() -> None:
     """Clear, but don't draw() the figure.
 
     Parameters
@@ -160,7 +160,7 @@ def clear():
         ax.set_yticks([])
 
 
-def toggle_fullscreen():
+def toggle_fullscreen() -> None:
     """Toggle fullscreen on/off.
 
     Parameters
@@ -176,7 +176,7 @@ def toggle_fullscreen():
     _get_manager(fig).full_screen_toggle()
 
 
-def close():
+def close() -> None:
     """Close the figure.
 
     Parameters
@@ -197,7 +197,7 @@ def close():
     _state.reset_press()
 
 
-def wait_for_interaction(timeout=-1):
+def wait_for_interaction(timeout=-1) -> bool | None:
     """Wait for interaction.
 
     Optionally use a timeout in seconds.
@@ -222,9 +222,9 @@ def wait_for_interaction(timeout=-1):
     #     but without figure.show() to prevent redrawing the figure.
 
     # Handler to stop blocking event loop.
-    event = None
+    event: Event | None = None
 
-    def handler(ev):
+    def handler(ev: Event) -> None:
         """Record the interaction and stop the event loop.
 
         Parameters
@@ -264,7 +264,7 @@ def wait_for_interaction(timeout=-1):
     return interaction_type
 
 
-def get_last_key_press():
+def get_last_key_press() -> str | None:
     """Get the last key press in lowercase.
 
     Parameters
@@ -286,7 +286,7 @@ def get_last_key_press():
         return key_string.lower()
 
 
-def get_last_mouse_press():
+def get_last_mouse_press() -> int | None:
     """Get the ID of the last mouse press.
 
     Parameters
@@ -308,7 +308,7 @@ def get_last_mouse_press():
         return mouse_button.value
 
 
-def get_last_mouse_pos():
+def get_last_mouse_pos() -> tuple[float | None, float | None]:
     """Get the last mouse position.
 
     Parameters
@@ -325,7 +325,7 @@ def get_last_mouse_pos():
     return (_state.last_mouse_x, _state.last_mouse_y)
 
 
-def wait(timeout):
+def wait(timeout) -> None:
     """Freeze for the given number of seconds.
 
     During this period it is not possible to interact
@@ -385,7 +385,7 @@ def _get_manager(fig: Figure) -> FigureManagerBase:
     return manager
 
 
-def _key_press_handler(event):
+def _key_press_handler(event) -> None:
     """Register key and mouse coordinates on press.
 
     Parameters
@@ -404,7 +404,7 @@ def _key_press_handler(event):
     _state.last_mouse_y = event.ydata
 
 
-def _button_press_handler(event):
+def _button_press_handler(event) -> None:
     """Register key, mouse button and mouse coordinates on press.
 
     Parameters
@@ -422,7 +422,7 @@ def _button_press_handler(event):
     _state.last_mouse_y = event.ydata
 
 
-def _close_handler(_):
+def _close_handler(_) -> None:
     """Exit when the user presses the red x to close the figure
     to prevent an infinite event loop.
 
@@ -474,7 +474,7 @@ class _State:
     last_mouse_x: float | None = None
     last_mouse_y: float | None = None
 
-    def reset_fig(self):
+    def reset_fig(self) -> None:
         """Reset figure information and display options.
 
         Parameters
@@ -496,7 +496,7 @@ class _State:
         self.external_close = True
         self.closing = False
 
-    def reset_press(self):
+    def reset_press(self) -> None:
         """Reset last registered press information.
 
         Parameters

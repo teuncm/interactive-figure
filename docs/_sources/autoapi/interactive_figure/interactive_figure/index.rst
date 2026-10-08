@@ -32,7 +32,7 @@ Functions
 Module Contents
 ---------------
 
-.. py:function:: create(hide_x_labels=False, hide_y_labels=False, hide_top_frame=False, hide_right_frame=False, hide_bottom_frame=False, hide_left_frame=False, hide_toolbar=False, layout='constrained', **kwargs)
+.. py:function:: create(hide_x_labels=False, hide_y_labels=False, hide_top_frame=False, hide_right_frame=False, hide_bottom_frame=False, hide_left_frame=False, hide_toolbar=False, layout='constrained', **kwargs) -> None
 
    Create the interactive figure.
 
@@ -68,7 +68,7 @@ Module Contents
        if multiple interactive figures are created at the same time.
 
 
-.. py:function:: draw()
+.. py:function:: draw() -> None
 
    Draw contents of the figure.
 
@@ -81,7 +81,7 @@ Module Contents
    None
 
 
-.. py:function:: clear()
+.. py:function:: clear() -> None
 
    Clear, but don't draw() the figure.
 
@@ -94,7 +94,7 @@ Module Contents
    None
 
 
-.. py:function:: toggle_fullscreen()
+.. py:function:: toggle_fullscreen() -> None
 
    Toggle fullscreen on/off.
 
@@ -107,7 +107,7 @@ Module Contents
    None
 
 
-.. py:function:: close()
+.. py:function:: close() -> None
 
    Close the figure.
 
@@ -120,7 +120,7 @@ Module Contents
    None
 
 
-.. py:function:: wait_for_interaction(timeout=-1)
+.. py:function:: wait_for_interaction(timeout=-1) -> bool | None
 
    Wait for interaction.
 
@@ -139,7 +139,7 @@ Module Contents
        - None if no input was given within the timeout.
 
 
-.. py:function:: get_last_key_press()
+.. py:function:: get_last_key_press() -> str | None
 
    Get the last key press in lowercase.
 
@@ -153,7 +153,7 @@ Module Contents
        The last key that was pressed.
 
 
-.. py:function:: get_last_mouse_press()
+.. py:function:: get_last_mouse_press() -> int | None
 
    Get the ID of the last mouse press.
 
@@ -167,7 +167,7 @@ Module Contents
        The identifier of the last mouse button that was pressed.
 
 
-.. py:function:: get_last_mouse_pos()
+.. py:function:: get_last_mouse_pos() -> tuple[float | None, float | None]
 
    Get the last mouse position.
 
@@ -181,7 +181,7 @@ Module Contents
        The last registered mouse position after any interaction.
 
 
-.. py:function:: wait(timeout)
+.. py:function:: wait(timeout) -> None
 
    Freeze for the given number of seconds.
 
