@@ -265,7 +265,7 @@ def wait_for_interaction(timeout=-1) -> bool | None:
 
 
 def get_last_key_press() -> str | None:
-    """Get the last key press in lowercase.
+    """Get the last key press.
 
     Parameters
     ----------
@@ -283,7 +283,7 @@ def get_last_key_press() -> str | None:
     if key_string is None:
         return None
     else:
-        return key_string.lower()
+        return key_string
 
 
 def get_last_mouse_press() -> int | None:

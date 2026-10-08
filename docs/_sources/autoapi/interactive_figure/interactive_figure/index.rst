@@ -141,7 +141,7 @@ Module Contents
 
 .. py:function:: get_last_key_press() -> str | None
 
-   Get the last key press in lowercase.
+   Get the last key press.
 
    Parameters
    ----------
