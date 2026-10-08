@@ -40,6 +40,10 @@ def create(
 
     Remaining keyword arguments will be sent to the Matplotlib figure.
 
+    Returns
+    -------
+    None
+
     Raises
     ----------
     RuntimeError
@@ -88,7 +92,16 @@ def create(
 
 
 def draw():
-    """Draw contents of the figure."""
+    """Draw contents of the figure.
+
+    Parameters
+    ----------
+    None
+
+    Returns
+    -------
+    None
+    """
     fig, _ = _check_exists()
 
     canvas = fig.canvas
@@ -100,7 +113,16 @@ def draw():
 
 
 def clear():
-    """Clear, but don't draw() the figure."""
+    """Clear, but don't draw() the figure.
+
+    Parameters
+    ----------
+    None
+
+    Returns
+    -------
+    None
+    """
     _, ax = _check_exists()
     ax.clear()
 
@@ -122,14 +144,32 @@ def clear():
 
 
 def toggle_fullscreen():
-    """Toggle fullscreen on/off."""
+    """Toggle fullscreen on/off.
+
+    Parameters
+    ----------
+    None
+
+    Returns
+    -------
+    None
+    """
     fig, _ = _check_exists()
 
     _get_manager(fig).full_screen_toggle()
 
 
 def close():
-    """Close the figure."""
+    """Close the figure.
+
+    Parameters
+    ----------
+    None
+
+    Returns
+    -------
+    None
+    """
     fig, _ = _check_exists()
 
     _state.external_close = False
@@ -163,29 +203,40 @@ def wait_for_interaction(timeout=-1):
     # Reimplementation of:
     # figure.Figure.waitforbuttonpress()
     # _blocking_input.blocking_input_loop()
-    #     but without show() to prevent redrawing the figure.
-
-    # Contains the event that was registered.
-    event = None
+    #     but without figure.show() to prevent redrawing the figure.
 
     # Handler to stop blocking event loop.
-    def simple_handler(ev):
+    event = None
+    def handler(ev):
+        """Record the interaction and stop the event loop.
+
+        Parameters
+        ----------
+        ev : matplotlib.backend_bases.Event
+            The mouse or keyboard event received from the canvas.
+
+        Returns
+        -------
+        None
+        """
         nonlocal event
         event = ev
         canvas.stop_event_loop()
 
-    # Connect event handlers and save callback ids.
-    callback_ids = [
-        canvas.mpl_connect(name, simple_handler)
-        for name in ["button_press_event", "key_press_event"]
+    # Connect the events to the on_event function call.
+    cids = [
+    canvas.mpl_connect("button_press_event", handler),
+    canvas.mpl_connect("key_press_event", handler),
     ]
+
     try:
-        # Start a blocking event loop.
-        canvas.start_event_loop(timeout=timeout)
+        # Start event loop.
+        canvas.start_event_loop(timeout)
+    # Run even on exception like ctrl-c.
     finally:
-        # Disconnect handlers.
-        for callback_id in callback_ids:
-            canvas.mpl_disconnect(callback_id)
+        # Disconnect the callbacks.
+        for cid in cids:
+            canvas.mpl_disconnect(cid)
 
     interaction_type = None if event is None else event.name == "key_press_event"
 
@@ -198,6 +249,10 @@ def wait_for_interaction(timeout=-1):
 
 def get_last_key_press():
     """Get the last key press in lowercase.
+
+    Parameters
+    ----------
+    None
 
     Returns
     -------
@@ -217,6 +272,10 @@ def get_last_key_press():
 def get_last_mouse_press():
     """Get the ID of the last mouse press.
 
+    Parameters
+    ----------
+    None
+
     Returns
     -------
     int | None
@@ -234,6 +293,10 @@ def get_last_mouse_press():
 
 def get_last_mouse_pos():
     """Get the last mouse position.
+
+    Parameters
+    ----------
+    None
 
     Returns
     -------
@@ -255,6 +318,10 @@ def wait(timeout):
     ----------
     timeout : float
         Number of seconds to wait for.
+
+    Returns
+    -------
+    None
     """
     fig, _ = _check_exists()
 
@@ -270,6 +337,15 @@ def wait(timeout):
 
 def _check_exists() -> tuple[Figure, Axes]:
     """Return the figure and axes if the interactive figure exists.
+
+    Parameters
+    ----------
+    None
+
+    Returns
+    -------
+    tuple[Figure, Axes]
+        The existing figure and its axes.
 
     Raises
     ------
@@ -297,6 +373,10 @@ def _key_press_handler(event):
     ----------
     event
         The event object that was generated internally
+
+    Returns
+    -------
+    None
     """
     _state.last_keypress = event.key
     # Mouse press data is not provided for key press event.
@@ -312,6 +392,10 @@ def _button_press_handler(event):
     ----------
     event
         The event object that was generated internally
+
+    Returns
+    -------
+    None
     """
     _state.last_keypress = event.key
     _state.last_mousepress = event.button
@@ -327,6 +411,15 @@ def _close_handler(_):
     ----------
     _
         The event object that was generated internally
+
+    Returns
+    -------
+    None
+
+    Raises
+    ------
+    SystemExit
+        If the figure was closed externally and shutdown is not already in progress.
     """
     # Prevent infinite closing loop on MacOS.
     if _state.closing:
@@ -359,7 +452,16 @@ class _State:
     last_mouse_y: float | None = None
 
     def reset_fig(self):
-        """Reset figure information and display options."""
+        """Reset figure information and display options.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
         self.fig = None
         self.ax = None
         self.hide_x_labels = False
@@ -369,7 +471,16 @@ class _State:
         self.closing = False
 
     def reset_press(self):
-        """Reset last registered press information."""
+        """Reset last registered press information.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+        """
         self.last_keypress = None
         self.last_mousepress = None
         self.last_mouse_x = None

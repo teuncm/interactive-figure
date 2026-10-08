@@ -8,6 +8,14 @@ Development and packaging are managed with [uv](https://docs.astral.sh/uv/).
 
 ## Installation
 
+Requires Python 3.11 or newer. To add the package to a uv project:
+
+```shell
+uv add interactive-figure
+```
+
+You can also install it with pip:
+
 ```shell
 pip install interactive-figure
 ```
@@ -34,7 +42,7 @@ Demos can be found in the *demo* folder on GitHub.
 
 ## Development
 
-Install [uv](https://docs.astral.sh/uv/getting-started/installation/) and use Python 3.11 or newer.
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/), then run these commands from the repository root:
 
 ```bash
 # Create the project environment and install development tools.
@@ -51,11 +59,30 @@ uv run mypy src/interactive_figure
 # Format and fix lint issues.
 uv run black .
 uv run ruff check --fix .
+```
 
-# Build documentation with the docs dependency group.
+uv manages the project environment in `.venv`; `uv run` uses it automatically without manual activation. If your shell has another virtual environment activated, run `deactivate` or open a fresh terminal before using uv.
+
+The `dev` dependency group includes the lint tools. Documentation dependencies are in the separate `docs` group. Commit `uv.lock` to keep development dependencies reproducible. There is currently no automated test suite; use the demos to check GUI behavior.
+
+### Documentation
+
+```bash
+# Install the docs dependencies and build the HTML documentation.
 ./generate_docs.sh
 
-# Set the next release version in pyproject.toml.
+# Or run Sphinx directly.
+uv run --group docs sphinx-build -b html docs_source docs
+```
+
+Both commands use the existing configuration in `docs_source/conf.py` and write HTML to `docs/`.
+
+### Releases
+
+The package version is maintained in `pyproject.toml`, and packages are built with `uv_build`. For example, to release version 0.6.0:
+
+```bash
+# Set the next release version.
 uv version 0.6.0
 
 # Build a wheel and source distribution.
@@ -66,7 +93,7 @@ uv build
 uv publish dist/interactive_figure-0.6.0*
 ```
 
-The package version is maintained in `pyproject.toml`. Commit `uv.lock` to keep development dependencies reproducible. There is currently no automated test suite; use the demos to check GUI behavior.
+Use the chosen release version in the upload filename pattern so only that release's artifacts are published.
 
 ## Links
 
