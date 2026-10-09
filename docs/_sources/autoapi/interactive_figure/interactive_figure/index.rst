@@ -54,7 +54,7 @@ Module Contents
 
 .. py:function:: draw()
 
-   Draw contents of the figure.
+   Draw contents of the canvas.
 
    :Parameters: **None**
 
@@ -63,7 +63,7 @@ Module Contents
 
 .. py:function:: clear()
 
-   Clear, but don't draw() the figure.
+   Clear canvas, but *don't* draw() it.
 
    :Parameters: **None**
 

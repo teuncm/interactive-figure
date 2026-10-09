@@ -107,7 +107,7 @@ def create(
 
 
 def draw() -> None:
-    """Draw contents of the figure.
+    """Draw contents of the canvas.
 
     Parameters
     ----------
@@ -127,7 +127,7 @@ def draw() -> None:
 
 
 def clear() -> None:
-    """Clear, but don't draw() the figure.
+    """Clear canvas, but *don't* draw() it.
 
     Parameters
     ----------
