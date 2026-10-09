@@ -13,11 +13,23 @@ author = "Teun Mathijssen"
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ["sphinx_rtd_theme", "autoapi.extension"]
+# extensions = ["sphinx_rtd_theme", "autoapi.extension"]
+
+extensions = [
+    "sphinx_rtd_theme",
+    "sphinx.ext.napoleon",
+    "autoapi.extension",
+]
+
+napoleon_use_param = False
+napoleon_use_rtype = False
+
 autoapi_dirs = ["../src/interactive_figure"]
 # autoapi_options = ['members', 'show-module-summary', 'undoc-members']
 
 autoapi_options = ["show-module-summary", "undoc-members"]
+
+autodoc_typehints = "none"
 
 # templates_path = ['_templates']
 exclude_patterns = []
