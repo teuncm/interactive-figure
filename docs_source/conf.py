@@ -27,7 +27,7 @@ napoleon_use_rtype = False
 autoapi_dirs = ["../src/interactive_figure"]
 # autoapi_options = ['members', 'show-module-summary', 'undoc-members']
 
-autoapi_options = ["show-module-summary", "undoc-members"]
+autoapi_options = ["show-module-summary", "undoc-members", "imported-members"]
 
 autodoc_typehints = "none"
 
