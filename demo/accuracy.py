@@ -1,4 +1,4 @@
-# This demo shows a simple reaction time measurement experiment.
+# This demo shows a simple accuracy experiment.
 
 import random
 import time

@@ -5,8 +5,8 @@ interactive_figure.interactive_figure
 
 .. autoapi-nested-parse::
 
-   This module provides functions to create and interact with a Matplotlib figure. The figure registers mouse presses,
-   keyboard input and the location of the mouse after any input.
+   This package contains functions to create and interact with a modified Matplotlib figure.
+   The figure registers mouse presses, keyboard input and the location of the mouse after any input.
 
    Source: https://github.com/teuncm/interactive-figure
 

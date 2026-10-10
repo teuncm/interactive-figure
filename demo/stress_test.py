@@ -1,4 +1,4 @@
-# This is a timing-based stress test for the interactive figure.
+# This is a timing-based stress test.
 
 import math
 import random

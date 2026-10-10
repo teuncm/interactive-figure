@@ -1,6 +1,6 @@
 # Interactive Figure
 
-This package serves for students to learn the basics of Python, Matplotlib and setting up reaction time experiments (visual search task, Stroop task, etc.). For a more accurate timing environment one should refer to e.g. [PsychoPy](https://www.psychopy.org/).
+This package helps students learn the basics of Python, Matplotlib and set up reaction time experiments (visual search task, Stroop task, etc.). For a more accurate timing environment refer to e.g. [PsychoPy](https://www.psychopy.org/).
 
 This is currently used at the University of Amsterdam (UvA) in the courses *Introduction to Python Programming for Neuroscientists* and *Experimentatie - Inleiding Programmeren*.
 
@@ -33,7 +33,7 @@ print(f"Pressed key: {key}")
 ifig.close()
 ```
 
-Each edge of the axes frame can be hidden independently. For example, to keep only the bottom and left edges:
+Each edge of the frame can be hidden independently. For example, to keep only the bottom and left edges:
 
 ```python
 ifig.create(hide_top_frame=True, hide_right_frame=True)
@@ -64,6 +64,11 @@ uv run black --check --diff .
 uv run ruff check .
 uv run mypy src/interactive_figure
 
+# Install the docs dependencies and build the HTML documentation.
+./generate_docs.sh
+# Or run Sphinx directly.
+uv run --group docs sphinx-build -b html docs_source docs
+
 # Format and fix lint issues.
 uv run black .
 uv run ruff check --fix .
@@ -72,18 +77,6 @@ uv run ruff check --fix .
 uv manages the project environment in `.venv`; `uv run` uses it automatically without manual activation. If your shell has another virtual environment activated, run `deactivate` or open a fresh terminal before using uv.
 
 The `dev` dependency group includes the lint tools. Documentation dependencies are in the separate `docs` group. Commit `uv.lock` to keep development dependencies reproducible. There is currently no automated test suite; use the demos to check GUI behavior.
-
-### Documentation
-
-```bash
-# Install the docs dependencies and build the HTML documentation.
-./generate_docs.sh
-
-# Or run Sphinx directly.
-uv run --group docs sphinx-build -b html docs_source docs
-```
-
-Both commands use the existing configuration in `docs_source/conf.py` and write HTML to `docs/`.
 
 ### Releases
 
