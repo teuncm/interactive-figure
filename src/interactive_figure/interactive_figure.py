@@ -62,6 +62,7 @@ def create(
         raise RuntimeError(message)
     else:
         if hide_toolbar:
+            _state.previous_toolbar = plt.rcParams["toolbar"]
             plt.rcParams["toolbar"] = "None"
 
         _state.hide_x_labels = hide_x_labels
@@ -191,6 +192,9 @@ def close() -> None:
 
     _state.external_close = False
     plt.close(fig)
+
+    if _state.previous_toolbar is not None:
+        plt.rcParams["toolbar"] = _state.previous_toolbar
 
     # Handle proper closure so that the figure can be reused.
     _state.reset_fig()
@@ -467,6 +471,7 @@ class _State:
     hide_right_frame: bool = False
     hide_bottom_frame: bool = False
     hide_left_frame: bool = False
+    previous_toolbar: str | None = None
     external_close: bool = True
     closing: bool = False
     last_keypress: str | None = None
@@ -493,6 +498,7 @@ class _State:
         self.hide_right_frame = False
         self.hide_bottom_frame = False
         self.hide_left_frame = False
+        self.previous_toolbar = None
         self.external_close = True
         self.closing = False
 

@@ -45,7 +45,7 @@ Demos can be found in the *demo* folder on GitHub.
 
 ## Limitations
 
-- Waiting for user input will not work in Jupyter Notebooks and the interactive interpreter due to the way Matplotlib handles events.
+- Waiting for user input will not work in Jupyter Notebooks and the interactive interpreter due to the way Matplotlib handles events. Only a standalone script with an interactive figure correctly captures user input events in an event loop.
 - Automated testing is hard since tests should cover multiple backends (macosx, QtAgg, Tkgg) on multiple platforms (Windows, macOS, Linux). Tips are very welcome!
 
 ## Development
@@ -58,6 +58,9 @@ uv sync
 
 # Run a demo (requires a graphical desktop).
 uv run python demo/usage.py
+
+# Run the unit tests without opening GUI windows.
+uv run pytest
 
 # Check formatting, lint, and types.
 uv run black --check --diff .
@@ -76,7 +79,7 @@ uv run ruff check --fix .
 
 uv manages the project environment in `.venv`; `uv run` uses it automatically without manual activation. If your shell has another virtual environment activated, run `deactivate` or open a fresh terminal before using uv.
 
-The `dev` dependency group includes the lint tools. Documentation dependencies are in the separate `docs` group. Commit `uv.lock` to keep development dependencies reproducible. There is currently no automated test suite; use the demos to check GUI behavior.
+The `dev` dependency group includes the lint tools and pytest from the `test` group. Documentation dependencies are in the separate `docs` group. Commit `uv.lock` to keep development dependencies reproducible.
 
 ### Releases
 

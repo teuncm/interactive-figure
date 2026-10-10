@@ -4,7 +4,7 @@ build-backend = "uv_build"
 
 [project]
 name = "interactive-figure"
-version = "0.6.4"
+version = "0.6.5"
 description = "Create interactive Matplotlib figures!"
 requires-python = ">=3.11"
 readme = "README.md"
@@ -29,7 +29,8 @@ Issues = "https://github.com/teuncm/interactive-figure/issues"
 Source = "https://github.com/teuncm/interactive-figure"
 
 [dependency-groups]
-dev = [{ include-group = "lint" }]
+dev = [{ include-group = "lint" }, { include-group = "test" }]
+test = ["pytest"]
 docs = [
   "sphinx",
   "sphinx-rtd-theme",
@@ -47,9 +48,17 @@ target-version = ["py311"]
 line-length = 120
 skip-string-normalization = true
 
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.pyright]
+ignore = ["tests"]
+
 [tool.ruff]
 target-version = "py311"
 line-length = 120
+extend-exclude = ["tests"]
+force-exclude = true
 
 [tool.ruff.lint]
 select = [
