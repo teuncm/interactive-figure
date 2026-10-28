@@ -220,6 +220,8 @@ def wait_for_interaction(timeout=-1) -> bool | None:
     """
     fig, _ = _check_exists()
 
+    _state.reset_press() # Necessary to not pass over last_interaction_available
+
     # Reimplementation of:
     # figure.Figure.waitforbuttonpress()
     # _blocking_input.blocking_input_loop()
@@ -265,6 +267,8 @@ def wait_for_interaction(timeout=-1) -> bool | None:
         # No button was pressed, so reset the press state.
         _state.reset_press()
 
+    _state.last_interaction_available = True
+
     return interaction_type
 
 
@@ -279,8 +283,14 @@ def get_last_key_press() -> str | None:
     -------
     str | None
         The last key that was pressed.
+
+    Raises
+    ----------
+    RuntimeError
+        If no interactive figure exists, or 
+        if wait_for_interaction() was not completed since last interaction result reset
     """
-    _check_exists()
+    _check_last_interaction_available("get_last_key_press")
 
     key_string = _state.last_keypress
 
@@ -301,8 +311,14 @@ def get_last_mouse_press() -> int | None:
     -------
     int | None
         The identifier of the last mouse button that was pressed.
+
+    Raises
+    ----------
+    RuntimeError
+        If no interactive figure exists, or 
+        if wait_for_interaction() was not completed since since last interaction result reset.
     """
-    _check_exists()
+    _check_last_interaction_available("get_last_mouse_press")
 
     mouse_button = _state.last_mousepress
 
@@ -323,8 +339,14 @@ def get_last_mouse_pos() -> tuple[float | None, float | None]:
     -------
     (x: float, y: float) | (None, None)
         The last registered mouse position after any interaction.
+
+    Raises
+    ----------
+    RuntimeError
+        If no interactive figure exists, or 
+        if wait_for_interaction() was not completed since last interaction result reset
     """
-    _check_exists()
+    _check_last_interaction_available("get_last_mouse_pos")
 
     return (_state.last_mouse_x, _state.last_mouse_y)
 
@@ -458,6 +480,29 @@ def _close_handler(_) -> None:
     else:
         print("closed interactive figure")
 
+def _check_last_interaction_available(function_name: str):
+    """
+    Checks whether there is an interaction result available.
+
+    Parameters
+    ------------
+    function_name
+        The function that requires an interaction result to be available
+
+    Returns
+    --------
+    None
+
+    Raises
+    ----------
+    RuntimeError
+        if multiple interactive figures are created at the same time.
+    """
+    _check_exists()
+
+    if not _state.last_interaction_available:
+        message = f"{function_name}() requires wait_for_interaction() to be called and completed first"
+        raise RuntimeError(message)
 
 @dataclass
 class _State:
@@ -478,6 +523,7 @@ class _State:
     last_mousepress: MouseButton | None = None
     last_mouse_x: float | None = None
     last_mouse_y: float | None = None
+    last_interaction_available: bool = False # To track if there are interaction results available
 
     def reset_fig(self) -> None:
         """Reset figure information and display options.
@@ -502,6 +548,7 @@ class _State:
         self.external_close = True
         self.closing = False
 
+
     def reset_press(self) -> None:
         """Reset last registered press information.
 
@@ -517,6 +564,7 @@ class _State:
         self.last_mousepress = None
         self.last_mouse_x = None
         self.last_mouse_y = None
+        self.last_interaction_available = False
 
 
 # Track the state of the interactive figure.
